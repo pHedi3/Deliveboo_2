@@ -1,0 +1,42 @@
+.container-login{
+    padding-top: 50px;
+}
+.bg-lr{
+    background-color: $background;
+    height: calc(100vh - 70px); 
+
+}
+
+.bg-login{
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.button-login{
+    background-color: $background2;
+    color: $main-title;
+    border: $background2;
+    transition: none;
+
+    &:hover , &:active , &:visited , &:focus{
+        background-color: $background2 !important;
+        color: $main-title !important;
+        border-color: $main-title !important;
+        
+
+    }
+
+    &:active , &:focus, &:visited{
+        box-shadow: 0 0 2px 2px $main-title !important;
+        
+    }
+}
+
+.border-box-login{
+    
+    &:active , &:focus, &:visited{
+        box-shadow: 0 0 2px 2px $main-title !important;
+        
+    }
+}
