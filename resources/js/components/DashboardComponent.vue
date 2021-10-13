@@ -80,7 +80,7 @@ export default {
             })
             .then((response)=>{
                 this.getRestaurant();
-            })
+            }) 
             this.flegNewRestaurant = false;
         }
     }
