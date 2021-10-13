@@ -3,20 +3,25 @@
         <div class="back">
             <div class="container">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-md-6 col-12">
                         <h1>Ordina qui dal tuo ristorante di fiducia</h1>
-                        <div class="search row">
-                            <div class="col-12">
-                            <h2>Cerca il tuo ristorante preferito</h2>
-                            </div>
-                            <div class="col-12 d-flex">
-                            <input v-model="search" type="text" placeholder="Inserisci qui il nome">
-                            <button @click="getRestaurantSearch" class="btn btn-primary">Cerca</button>
+                        <div class="row p-1">
+                            <div class="search col-lg-12 col-md-10 col-12">
+                                <div>
+                                    <h2>Cerca il tuo ristorante preferito</h2>
+                                </div>
+                                <div class=" d-flex">
+                                    <input v-model="search" type="text" placeholder="Inserisci qui il nome">
+                                    <button @click="getRestaurantSearch" class="btn btn-primary">Cerca</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-6 d-flex justify-content-center">
-                        <img src="/img/img-jumbo.webp" alt="cioa">
+                        <div class="jumbo">
+                              <img src="/img/img-jumbo.webp" alt="jumbo-img"><!--responsive img-->
+                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -24,7 +29,7 @@
         <div class="category">
             <div class="container">
                 <div class="row">
-                    <button class="col-2 p-1" v-for="(element, index) in category" :key="index" 
+                    <button class="col-lg-2 col-md-4 col-sm-6 col-12 p-1" v-for="(element, index) in category" :key="index" 
                     @click="getCategorySearch(element.id)"> 
                         <category-card 
                         :name="element.name"
@@ -94,11 +99,23 @@ export default {
 
 .homepage {
     font-family: 'Roboto Slab';
+    .jumbo{
+        display: none;
+    }
+    @media(min-width:768px) {
+        .jumbo {
+            display: block; /*DISPLAY NONE */
+        }
+    }
 }
 .category {
+    
     button {
         border: none;
+        background-color: white;    
+      
     }
+    
 }
 
 .back {
