@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Restaurant;
+use App\Http\Resources\RestaurantResource;
+
 
 class RestaurantSearchController extends Controller
 {
@@ -26,7 +28,7 @@ class RestaurantSearchController extends Controller
         $query = Restaurant::where('name', 'like', $name . '%')
             ->orWhere('name', 'like', '% ' . $name . '%')->get();
 
-        return response()->json($query);
+        return RestaurantResource::collection($query);
     }
 
 }
