@@ -73,7 +73,9 @@
                 </div>
             </div>
         </nav>
-
+        @if (Auth::check()) 
+            <meta name="user_id" content="{{ Auth::user()->id }}" />
+        @endif
         <main >
             @yield('content')
         </main>
