@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\RestaurantResource;
+
 
 
 use App\Restaurant;
@@ -53,7 +55,7 @@ class CategorySearchController extends Controller
         $restaurant = Restaurant::whereHas('category', function (Builder $query) use ($category) {
             $query->where('name', 'like', $category);
         })->get();;
-        return response()->json($restaurant);
+        return RestaurantResource::collection($restaurant);
     }
 
     /**

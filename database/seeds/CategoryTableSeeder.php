@@ -26,7 +26,7 @@ class CategoryTableSeeder extends Seeder
             ],
             [
                 'name' => 'messicano',
-                'img' => '\img\tacos-carne-e-formaggio.jpg'
+                'img' => '\img\tacos-carne-e-formaggio.webp'
             ],
             [
                 'name' => 'indiano',
@@ -34,11 +34,11 @@ class CategoryTableSeeder extends Seeder
             ],
             [
                 'name' => 'giapponese',
-                'img' => '\img\sushi-nigiri-830x625.jpg'
+                'img' => '\img\nigiri.jfif'
             ],
             [
                 'name' => 'americano',
-                'img' => '\img\hamburger-di-carne-americano.jpg'
+                'img' => '\img\hamburger.jfif'
             ]
         ];
 
