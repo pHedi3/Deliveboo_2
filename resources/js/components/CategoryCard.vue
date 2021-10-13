@@ -1,7 +1,12 @@
 <template>
     <div class="mycard">
-        <img :src="img" alt="">
-        <h4>{{name}}</h4>
+        <div class="box"> 
+             <img :src="img" alt="category-img">
+           
+        </div>
+          <h4>{{name}}</h4>
+        
+        
     </div>
 </template>
 
@@ -32,11 +37,37 @@ export default {
     .mycard {
         background-color: rgba($color: #ffffff, $alpha: .8);
         border-radius: 12px;
-        img {
+        box-shadow: 0 0 3px;
+        .box{
             width: 100%;
+            height: 150px;
+             overflow: hidden;
+             position: relative;
+             border-radius: 12px;
+        
+            img{
+                height: 110%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(- 50%, -50%);
+
+            }
+        }
+         @media(max-width:500px) {
+             .box {
+                 height: auto;
+                img {
+                    display: none;  
+                 }
+             }
+         
+      }
+        img {
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
         }
+
     h4 {
         margin-top: 8px;
         font-weight: 900;
