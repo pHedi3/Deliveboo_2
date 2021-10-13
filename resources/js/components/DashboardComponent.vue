@@ -1,15 +1,13 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="card-deck">
-                <div v-for="restaurant in restaurants" :key="restaurant.id">
-                    <div class="card col-5">
-                        <img :src="restaurant.img" class="card-img-top" alt="">
-                        <div class="card-body">
-                            <h3 class="card-title"> {{restaurant.name}} </h3>
-                            <p class="card-text"> {{restaurant.address}}</p>
-                            <p class="card-text"> {{restaurant.category}}</p>
-                        </div>
+            <div class=" col-12 col-md-6" v-for="restaurant in restaurants" :key="restaurant.id">
+                <div class="box-restaurant">
+                    <img :src="restaurant.img" class="card-img-top" alt="picture-restaurant">
+                    <div class="card-body">
+                        <h3 class="card-title">{{restaurant.name}}</h3>
+                        <p class="card-text">{{restaurant.address}}</p>
+                        <p class="card-text">{{restaurant.category}}</p>
                     </div>
                 </div>
             </div>
