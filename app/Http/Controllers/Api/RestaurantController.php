@@ -43,9 +43,9 @@ class RestaurantController extends Controller
         //return response()->json($request);
         $data = $request->all();
 
-        // $newRestaurant = new Restaurant();
-        // $this->fillAndSave($newRestaurant, $data);
-        // $newRestaurant->category()->attach($data['category_id']);
+        $newRestaurant = new Restaurant();
+        $this->fillAndSave($newRestaurant, $data);
+        $newRestaurant->category()->attach($data['category_id']);
         return response()->json($data);
     }
 
@@ -104,7 +104,7 @@ class RestaurantController extends Controller
     {
         $restaurant->name = $data['name'];
         $restaurant->address = $data['address'];
-        $newRestaurant->user_id = $data['user_id'];
+        $restaurant->user_id = $data['user_id'];
         $restaurant->save();
     }
 

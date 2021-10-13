@@ -21,10 +21,10 @@
         <div class="back-form" v-if="flegNewRestaurant">
             <div class="form">
                 <label for="name">Inserisci Nome del Ristorante</label>
-                <input type="text" id="name" v-model="newResturantName">
+                <input class="border-box-add" type="text" id="name" v-model="newResturantName">
                 <br>
                 <label for="address">Inserisci Indirizzo del Ristorante</label>
-                <input type="text" id="address" v-model="newResturantAddress">
+                <input class="border-box-add" type="text" id="address" v-model="newResturantAddress">
                 <br>
 
                 <div class="category-box" >
@@ -59,7 +59,7 @@ export default {
     },
     methods:{
         getRestaurant() {
-            axios.get("/api/userrestaurant/" + this.user_id).then((response)=> {
+            axios.get("/api/userRestaurant/" + this.user_id).then((response)=> {
                 this.restaurants= response.data.data
                 console.log(this.restaurants)
             })
@@ -79,7 +79,7 @@ export default {
                 user_id: this.user_id
             })
             .then((response)=>{
-                console.log(response.data)
+                this.getRestaurant();
             })
             this.flegNewRestaurant = false;
         }
@@ -129,6 +129,11 @@ export default {
                     border-bottom: 1px solid black;
                 }
             }
+            .border-box-add{
+                    &:hover, &:active, &:focus, &:visited{
+                        box-shadow: 0 0 1px 1px #8e3b46 !important;
+                    }
+                }
             .button-add-restaurant{
                background-color: #e1dd8f;
                border: #e1dd8f;
