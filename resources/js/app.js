@@ -22,6 +22,7 @@ Vue.component('homepage', require('./components/Homepage.vue').default);
 Vue.component('restaurant-card', require('./components/RestaurantCard.vue').default);
 Vue.component('category-card', require('./components/CategoryCard.vue').default);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('single-restaurant', require('./components/SingleRestaurant.vue').default);
 
 Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
 

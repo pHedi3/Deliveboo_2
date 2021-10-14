@@ -40,7 +40,6 @@ export default {
         box-shadow: 0 0 3px;
         .box{
             width: 100%;
-            height: 150px;
              overflow: hidden;
              position: relative;
              border-radius: 12px;
@@ -51,14 +50,15 @@ export default {
                 top: 50%;
                 left: 50%;
                 transform: translate(- 50%, -50%);
+                display: none;  
 
             }
         }
-         @media(max-width:500px) {
+         @media(min-width:576px) {
              .box {
-                 height: auto;
+                 height: 150px;
                 img {
-                    display: none;  
+                    display: block;
                  }
              }
          
