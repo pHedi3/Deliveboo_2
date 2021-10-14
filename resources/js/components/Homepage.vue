@@ -12,7 +12,7 @@
                                 </div>
                                 <div class=" d-flex">
                                     <input v-model="search" type="text" placeholder="Inserisci qui il nome">
-                                    <button @click="getRestaurantSearch" class="btn btn-primary">Cerca</button>
+                                    <button @click="getRestaurantSearch" class="button-search">Cerca</button>
                                 </div>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="category">
+        <div class="category" v-if="flegCategory">
             <div class="container">
                 <div class="row">
                     <button class="col-lg-2 col-md-4 col-sm-6 col-12 p-1" v-for="(element, index) in category" :key="index" 
@@ -34,7 +34,7 @@
                         <category-card 
                         :name="element.name"
                         :img="element.img"/>
-                    </button>
+                    </button><!--  to do, rimanenere in active dopo la ricerca -->
                 </div>
             </div>
         </div>
@@ -45,7 +45,8 @@
                     :name="element.name"
                     :address="element.address"
                     :img="element.img"
-                    :category="element.category"/>
+                    :category="element.category"
+                    :id="element.id"/>
                 </div>
             </div>
         </div>
@@ -62,7 +63,8 @@ export default {
     return {
       search: "",
       restaurants: [],
-      category: []
+      category: [],
+      flegCategory: true
 
     };
   },
@@ -75,8 +77,8 @@ export default {
       axios.get("/api/restaurantsearch/" + this.search).then((response) => {
         console.log(response.data);
             this.restaurants = response.data.data
+            this.flegCategory = false
       });
-        this.search = ""
     },
     getCategory() {
       axios.get("/api/categories").then((response) => {
@@ -86,7 +88,7 @@ export default {
     },
     getCategorySearch(id) {
       axios.get("/api/categorysearch/" + id).then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
             this.restaurants = response.data.data
       });
     },
@@ -98,7 +100,6 @@ export default {
 @import "../../sass/app.scss";
 
 .homepage {
-    font-family: 'Roboto Slab';
     .jumbo{
         display: none;
     }
@@ -113,6 +114,16 @@ export default {
     button {
         border: none;
         background-color: white;    
+        &:hover {
+            opacity: 0.8;
+        }
+        .mycard {
+            border: 2px solid transparent;
+            &:active {
+                border-color: $main-title !important;
+
+            }
+        }
       
     }
     
@@ -149,5 +160,21 @@ export default {
     padding: 24px 0;
     background-color: $background;
 }
+.button-search{
+    background-color: $background2;
+    color: $main-title;
+    border: $background2;
+    
 
+    &:hover , &:active , &:visited , &:focus{
+        background-color: $background2 !important;
+        color: $main-title !important;
+        border-color: $main-title !important;
+    }
+
+    &:active , &:focus, &:visited{
+        box-shadow: 0 0 2px 2px $main-title !important;
+        
+    }
+}
 </style>
