@@ -23,7 +23,7 @@
               {{ address }}
             </p>
             <div class="re-buttons">
-              <button
+              <!-- <button
                 @click="getDishes(rId)"
                 type="submit"
                 class="btn btn-primary button-login"
@@ -31,7 +31,7 @@
                 data-target="#exampleModal"
               >
                 Menu
-              </button>
+              </button> -->
               <!-- Modal -->
               <div
                 class="modal fade"
@@ -78,14 +78,15 @@
                     <div class="modal-footer">
                       <!-- INIZIO MODALE NESTED -->
 
-                      <a
+                      <!-- <button
                         data-toggle="modal"
-                        href="#myModal"
+                        data-target="#formModal"
                         class="btn btn-primary"
-                        >Aggiungi Un Piatto</a
                       >
+                        Aggiungi Un Piatto
+                      </button>
 
-                      <div class="modal" id="myModal">
+                      <div class="modal" id="formModal">
                         <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -99,11 +100,11 @@
                                 ×
                               </button>
                             </div>
-                            <div class="container"></div>
+                            <div class="container"></div> -->
 
-                            <!-- FORM CREATE DISH NESTED -->
+                      <!-- FORM CREATE DISH NESTED -->
 
-                            <div class="modal-body">
+                      <!-- <div class="modal-body">
                               <form>
                                 <div class="form-group">
                                   <label for="exampleFormControlInput1"
@@ -156,21 +157,21 @@
                                     id="exampleFormControlInput1"
                                   />
                                 </div>
-                              </form>
+                              </form> -->
 
-                              <!-- FINE FORM CREATE DISH NESTED -->
-                            </div>
+                      <!-- FINE FORM CREATE DISH NESTED -->
+                      <!-- </div>
                             <div class="modal-footer">
-                              <a href="#" data-dismiss="modal" class="btn"
-                                >Close</a
-                              >
-                              <a href="#" class="btn btn-primary"
-                                >Save changes</a
-                              >
+                              <button data-dismiss="modal" class="btn">
+                                Close
+                              </button>
+                              <button class="btn btn-primary">
+                                Save changes
+                              </button>
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
                       <!-- FINE NESTED MODALE -->
 
@@ -181,16 +182,18 @@
                       >
                         Close
                       </button>
-                      <button type="button" class="btn btn-primary">
+                      <!-- <button type="button" class="btn btn-primary">
                         Save changes
-                      </button>
+                      </button> -->
                     </div>
                   </div>
                 </div>
               </div>
 
               <!-- FINE MODALE -->
-
+              <a :href="'/menù/' + rId" class="btn btn-primary button-login"
+                >Modifica Menu</a
+              >
               <button type="submit" class="btn btn-primary button-login">
                 Ordini
               </button>
@@ -211,16 +214,16 @@ export default {
     name: String,
     address: String,
     img: String,
-    category: String,
+    category: Array,
     rId: Number,
   },
   mounted() {
     this.getCourses();
-    function modal() {
-      $("#openBtn").click(function () {
-        $("#myModal").modal({ show: true });
-      });
-    }
+    // function modal() {
+    //   $("#openBtn").click(function () {
+    //     $("#formModal").modal({ show: true });
+    //   });
+    // }
   },
   data() {
     return {
@@ -255,10 +258,15 @@ export default {
   height: 100%;
 }
 
-.modal:nth-of-type(even) {
-  z-index: 1052 !important;
+.button-login {
+  margin-bottom: 10px;
 }
-.modal-backdrop.show:nth-of-type(even) {
-  z-index: 1051 !important;
-}
+
+// .modal:nth-of-type(even) {
+//   z-index: 1052 !important;
+// }
+// .modal-backdrop.show:nth-of-type(even) {
+//   z-index: 1051 !important;
+// }
 </style>
+
