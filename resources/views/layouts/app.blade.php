@@ -82,6 +82,65 @@
             @yield('content')
         </main>
 
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 box-content">
+                        <div class="box-footer">
+                            <div class="list-footer">Discover Deliveroo</div>
+                            <div class="list-footer"><a href="#">Investitori</a></div>
+                            <div class="list-footer"><a href="#">Chi siamo</a></div>
+                            <div class="list-footer"><a href="#">Ristoranti</a></div>
+                            <div class="list-footer"><a href="#">Altro</a></div>
+                            <div class="list-footer"><a href="#">Pressroom</a></div>
+                            <div class="list-footer"><a href="#">Il nostro blog</a></div>
+                            <div class="list-footer"><a href="#">Programmazione</a></div>
+                            <div class="list-footer"><a href="#">Design</a></div>
+                            <div class="list-footer"><a href="#">Lavora con noi</a></div>
+                            <div class="list-footer"><a href="#">Diventa nostro partner</a></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 box-content">
+                        <div class="box-footer">
+                            <div class="list-footer">Note Legali</div>
+                            <div class="list-footer"><a href="#">Termini & condizioni</a></div>
+                            <div class="list-footer"><a href="#">Informativa sulla privacy</a></div>
+                            <div class="list-footer"><a href="#">Cookies</a></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 box-content">
+                        <div class="box-footer">
+                            <div class="list-footer">Aiuto</div>
+                            <div class="list-footer"><a href="#">Contatti</a></div>
+                            <div class="list-footer"><a href="#">FAQ</a></div>
+                            <div class="list-footer"><a href="#">Tipi di cucina</a></div>
+                            <div class="list-footer"><a href="#">Mappa del sito</a></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 box-content">
+                        <div class="box-footer">
+                            <div class="list-footer">Porta Deliveroo con te</div>
+                            <div class="img-footer">
+                                <a href="#"><img src="./img/appstorefooter.png" width="150" alt=""></a>
+                            </div>
+                            <div class="img-footer">
+                                <a href="#"><img src="./img/appstorefooter2.png" width="150"alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 bottom-footer">
+                        <div class="left-bottom-footer">
+                            <span class="icon-footer"><a href="#"><i class="fab fa-facebook"></i></a></span>
+                            <span class="icon-footer"><a href="#"><i class="fab fa-twitter"></i></a></span>
+                            <span class="icon-footer"><a href="#"><i class="fab fa-instagram"></i></a></span>
+                        </div>
+                        <div class="rigth-bottom-footer">
+                            <span><i class="far fa-copyright"></i> 2021 Deliveroo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
     </div>
 </body>
