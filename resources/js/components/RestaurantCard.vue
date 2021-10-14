@@ -6,7 +6,6 @@
             <h4>{{name}}</h4>
             <h5 v-for="element in category" :key="element.id">{{element.name}}</h5>
             <h6>{{address}}</h6>
-            <h4>{{id}}</h4>
         </div>
         </a>
     </div>
