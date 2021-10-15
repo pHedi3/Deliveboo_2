@@ -1,117 +1,26 @@
 <template>
-  <div class="bg">
-    <div class="container">
-      <div class="row">
-        <!-- <div class="card-new col-12 col-md-6" @click="flegNewRestaurant = true">
+  <div class="container">
+    <div class="row">
+      <div class="card-new col-12 col-md-6" @click="flegNewRestaurant = true">
         <div class="button-container">
           <p class="button-text">Add New Restaurant</p>
           <i class="icon-add fas fa-plus-square"></i>
         </div>
-      </div> -->
-        <button
-          type="button"
-          class="btn btn-primary button-login button-create-r"
-          data-toggle="modal"
-          data-target="#exampleModal"
-        >
-          Aggiungi un nuovo Ristorante
-        </button>
-        <div
-          class="modal fade"
-          id="exampleModal"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1"
-                      >Inserisci Nome del Ristorante</label
-                    >
-                    <input
-                      v-model="newResturantName"
-                      type="text"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1"
-                      >Inserisci indirizzo del Ristorante</label
-                    >
-                    <input
-                      v-model="newResturantAddress"
-                      type="text"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                  </div>
-                  <div
-                    v-for="element in category"
-                    :key="element.id"
-                    class="form-group form-check-inline"
-                  >
-                    <input
-                      type="checkbox"
-                      :id="element.name"
-                      :value="element.id"
-                      v-model="checkedCategory"
-                      class="form-check-input"
-                    />
-                    <label class="form-check-label" :for="element.name">{{
-                      element.name
-                    }}</label>
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button
-                  @click="postRestaurant"
-                  class="btn btn-primary button-login"
-                >
-                  Crea Nuovo Ristorante
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-      <br />
-      <br />
-      <div class="row">
-        <RestaurantDashboardCard
-          v-for="restaurant in restaurants"
-          :key="restaurant.id"
-          :name="restaurant.name"
-          :address="restaurant.address"
-          :category="restaurant.category"
-          :img="restaurant.img"
-          :rId="restaurant.id"
-        />
-        <!-- <div
+    </div>
+    <br />
+    <br />
+    <div class="row">
+      <RestaurantDashboardCard
+        v-for="restaurant in restaurants"
+        :key="restaurant.id"
+        :name="restaurant.name"
+        :address="restaurant.address"
+        :category="restaurant.category"
+        :img="restaurant.img"
+        :rId="restaurant.id"
+      />
+      <!-- <div
         class="col-12 col-md-6"
         v-for="restaurant in restaurants"
         :key="restaurant.id"
@@ -129,8 +38,8 @@
           </div>
         </div>
       </div> -->
-      </div>
-      <!-- <div class="back-form" v-if="flegNewRestaurant">
+    </div>
+    <div class="back-form" v-if="flegNewRestaurant">
       <div class="form">
         <label for="name">Inserisci Nome del Ristorante</label>
         <input
@@ -167,7 +76,6 @@
           Crea Nuovo Ristorante
         </button>
       </div>
-    </div> -->
     </div>
   </div>
 </template>
@@ -227,7 +135,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "../../sass/app.scss";
 .card-new {
   margin-top: 50px;
   border: 1px solid black;
@@ -297,15 +204,5 @@ export default {
       }
     }
   }
-}
-
-.button-create-r {
-  margin-top: 20px;
-  font-weight: bold;
-  height: 50px;
-}
-
-.bg {
-  background-color: $background;
 }
 </style>
