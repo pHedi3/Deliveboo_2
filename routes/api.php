@@ -28,3 +28,5 @@ Route::resource('categorysearch', 'Api\CategorySearchController');
 Route::get('restaurantsearch/{name}', 'Api\restaurantsearchcontroller@research');
 Route::get('orderrestaurant/{id}', 'Api\OrderController@orderRestaurant');
 Route::get('userRestaurant/{id}', 'Api\RestaurantController@userRestaurant');
+
+Route::get('pay', 'Api\PayController@generate');
