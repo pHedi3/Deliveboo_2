@@ -4,7 +4,7 @@
             <div class="course">
                 <div class="d-flex justify-content-between">
                      <h1>carrello</h1>
-                    <button @click="flagModal =!flagModal">x</button>
+                    <button @click="flagModal =!flagModal">&#10006;</button>
                 </div>
                 
                 <div v-for="item in cart" :key="item.id">
@@ -34,23 +34,23 @@
                         </div>
                        
                     </div>
-                    <div class="col-lg-6 col-md-6 col-12"> <!--CARD PIATTI-->
+                    <div class="col-lg-6 col-md-6 col-12"> 
                         <div class="course" v-for="item in course" :key="item.id">
                             <div class="d-flex justify-content-between">
                                  <h1>{{item.name}}</h1>
-                                <button @click="showid = item.id">v</button>
+                                <button @click="showid = item.id">&#11167;</button>
                             </div>
                            
-                            <div v-show="item.name">
+                            <div v-show="item.name"> <!--CARD PIATTO-->
                                 <div class="dish" v-for="element in dish" :key="element.id"
                                 v-show="(item.name == element.course.name) && (showid == item.id)">
                                     <div class="inner-dish">
-                                        <div><h6>{{element.name}}</h6></div>
+                                        <div><h4>{{element.name}}</h4> </div>
                                         <div><h6>{{element.price}}€</h6></div>
-                                    </div>
-                                   
-                                     
-                                <button @click="add(element)">+</button>
+                                        <div class="add"><button @click="add(element)"><i class="fas fa-times"></i></button></div> 
+                                        <hr>
+                                    </div>     
+                               
                                 </div>
                             </div>
                             
@@ -61,8 +61,9 @@
                         <div class="course">
                             <h1>carrello</h1>
                             <div v-for="item in cart" :key="item.id">
-                                {{item.name}}
+                                {{item.name}}<button @click="remove(item)"> &#10006;</button>
                             </div>
+                           
                         </div>
                         
                     </div>
@@ -116,6 +117,10 @@ export default {
     },
     add(element) {
         this.cart.push(element) //to do, non vedere i multipli
+    },
+    remove(item) {
+        let itemId = this.cart.indexOf(item)
+        this.cart.splice(itemId, 1)
     }
   },
 };
@@ -190,13 +195,21 @@ export default {
         border-radius: 12px;
         padding: 8px;
         margin-top: 12px;
-        .inner-dish{
+        .inner-dish div{
+            justify-content: space-between;
             display: inline-block;
+            margin-left: 5px;    
+            
         }
+        .add{
+            justify-content: space-between;
+        }
+        
+            
         button {
               background-color: $background2;
                color: $main-title;
-                border: $background2;
+               border: $background2;
     
 
             &:hover , &:active , &:visited , &:focus{
@@ -209,8 +222,8 @@ export default {
                 box-shadow: 0 0 2px 2px $main-title !important;
                 
             }
-                }
-            }
+        }
+    }
 }
 
 </style>
