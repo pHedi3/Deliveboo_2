@@ -94,12 +94,151 @@
                     :key="singleDish.id"
                   >
                     {{ singleDish.name }}
+
+                    <!-- TASTO CHE APRE LA MODALE PER MODIFICARE IL PIATTO -->
+                    <button
+                      @click="getCourseId(item.id)"
+                      type="button"
+                      class="btn btn-primary button-login"
+                      data-toggle="modal"
+                      :data-target="'#exampleModalModify' + singleDish.id"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+
+                    <div
+                      class="modal fade"
+                      :id="'exampleModalModify' + singleDish.id"
+                      tabindex="-1"
+                      :aria-labelledby="
+                        'exampleModalLabelModify' + singleDish.id
+                      "
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5
+                              class="modal-title"
+                              :id="'exampleModalLabelModify' + singleDish.id"
+                            >
+                              Modal title
+                            </h5>
+                            <button
+                              type="button"
+                              class="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- INIZIO FORM IN MODALE DI MODIFICA -->
+                            <form>
+                              <div class="form-group">
+                                <label
+                                  :for="'FormNomePiattoModify' + singleDish.id"
+                                  >Nome del piatto</label
+                                >
+                                <input
+                                  v-model="dishName"
+                                  type="text"
+                                  class="form-control"
+                                  :id="'FormNomePiattoModify' + singleDish.id"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label
+                                  :for="
+                                    'FormControlSelectModify' + singleDish.id
+                                  "
+                                  >Portata</label
+                                >
+                                <select
+                                  class="form-control"
+                                  :id="
+                                    'FormControlSelectModify' + singleDish.id
+                                  "
+                                >
+                                  <option selected>
+                                    {{ item.name }}
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="form-group d-none">
+                                <input
+                                  :value="singleDish.id"
+                                  class="courseId"
+                                  type="text"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label
+                                  :for="
+                                    'FormControlIngredientsModify' +
+                                    singleDish.id
+                                  "
+                                  >Ingredienti</label
+                                >
+                                <textarea
+                                  v-model="dishIngredients"
+                                  class="form-control"
+                                  :id="
+                                    'FormControlIngredientsModify' +
+                                    singleDish.id
+                                  "
+                                  rows="3"
+                                ></textarea>
+                              </div>
+                              <div class="form-group">
+                                <label
+                                  :for="
+                                    'FormControlPriceModify' + singleDish.id
+                                  "
+                                  >Prezzo</label
+                                >
+                                <input
+                                  v-model="dishPrice"
+                                  type="number"
+                                  class="form-control"
+                                  :id="'FormControlPriceModify' + singleDish.id"
+                                />
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-secondary"
+                              data-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <button
+                              @click="changeDish()"
+                              type="button"
+                              class="btn btn-primary button-login"
+                            >
+                              Modifica Piatto
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- FINE MODALE MODIFICA PIATTI -->
+
+                    <button class="btn btn-primary button-login">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
                   </li>
                 </ul>
 
                 <!-- TASTO CHE APRE LA MODALE AGGIUNGERE UN PIATTO -->
 
                 <button
+                  @click="getCourseId(item.id)"
                   type="button"
                   class="btn btn-primary button-login"
                   data-toggle="modal"
@@ -137,6 +276,66 @@
                       </div>
                       <div class="modal-body">
                         <!-- INIZIO FORM IN MODALE -->
+                        <form>
+                          <div class="form-group">
+                            <label :for="'FormNomePiatto' + item.name + item.id"
+                              >Nome del piatto</label
+                            >
+                            <input
+                              v-model="dishName"
+                              type="text"
+                              class="form-control"
+                              :id="'FormNomePiatto' + item.name + item.id"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label
+                              :for="'FormControlSelect' + item.name + item.id"
+                              >Portata</label
+                            >
+                            <select
+                              class="form-control"
+                              :id="'FormControlSelect' + item.name + item.id"
+                            >
+                              <option selected>{{ item.name }}</option>
+                            </select>
+                          </div>
+                          <div class="form-group d-none">
+                            <input
+                              :value="item.id"
+                              class="courseId"
+                              type="text"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label
+                              :for="
+                                'FormControlIngredients' + item.name + item.id
+                              "
+                              >Ingredienti</label
+                            >
+                            <textarea
+                              v-model="dishIngredients"
+                              class="form-control"
+                              :id="
+                                'FormControlIngredients' + item.name + item.id
+                              "
+                              rows="3"
+                            ></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label
+                              :for="'FormControlPrice' + item.name + item.id"
+                              >Prezzo</label
+                            >
+                            <input
+                              v-model="dishPrice"
+                              type="number"
+                              class="form-control"
+                              :id="'FormControlPrice' + item.name + item.id"
+                            />
+                          </div>
+                        </form>
                       </div>
                       <div class="modal-footer">
                         <button
@@ -146,8 +345,12 @@
                         >
                           Close
                         </button>
-                        <button type="button" class="btn btn-primary">
-                          Save changes
+                        <button
+                          @click="postDish()"
+                          type="button"
+                          class="btn btn-primary button-login"
+                        >
+                          Crea Nuovo Piatto
                         </button>
                       </div>
                     </div>
@@ -183,6 +386,10 @@ export default {
       cart: [],
       showid: 0,
       flagModal: false,
+      dishName: "",
+      dishCourse: "",
+      dishIngredients: "",
+      dishPrice: "",
     };
   },
   props: {
@@ -193,6 +400,11 @@ export default {
     this.getRestaurant();
     this.getDish();
     this.getCourse();
+  },
+  computed: {
+    correctName(dishname) {
+      return dishname.toString().replace(" ", "-");
+    },
   },
   methods: {
     getRestaurant() {
@@ -206,6 +418,7 @@ export default {
         console.log(response.data.data);
         this.dish = response.data.data;
       });
+      console.log("ciao");
     },
     getCourse() {
       axios.get("/api/courses").then((response) => {
@@ -213,8 +426,45 @@ export default {
         this.course = response.data;
       });
     },
-    add(element) {
-      this.cart.push(element); //to do, non vedere i multipli
+    getCourseId(courseid) {
+      this.dishCourse = courseid;
+    },
+    postDish() {
+      axios
+        .post("/api/dishes", {
+          name: this.dishName,
+          price: this.dishPrice,
+          ingredients: this.dishIngredients,
+          course_id: this.dishCourse,
+          restaurant_id: this.id,
+        })
+        .then((response) => {
+          console.log(response.data.data);
+        });
+
+      this.dishName = "";
+      this.dishPrice = "";
+      this.dishIngredients = "";
+      this.dishCourse = "";
+      this.getDish();
+    },
+    changeDish() {
+      axios
+        .put("/api/dishes" + this.dish.id, {
+          name: this.dishName,
+          price: this.dishPrice,
+          ingredients: this.dishIngredients,
+          course_id: this.dishCourse,
+          restaurant_id: this.id,
+        })
+        .then((response) => {
+          console.log(response.data.data);
+        });
+
+      this.dishName = "";
+      this.dishPrice = "";
+      this.dishIngredients = "";
+      this.dishCourse = "";
     },
   },
 };
@@ -312,5 +562,14 @@ export default {
 
 .accordion {
   margin-bottom: 20px;
+}
+
+.dishes-list {
+  li {
+    margin-top: 20px;
+    button {
+      margin-left: 10px;
+    }
+  }
 }
 </style>
