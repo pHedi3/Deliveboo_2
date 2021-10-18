@@ -4,7 +4,7 @@
             <div class="course">
                 <div class="d-flex justify-content-between">
                      <h1>carrello</h1>
-                    <button @click="flagModal =!flagModal">&#10006;</button>
+                    <button @click="flagModal =!flagModal"><i class="fas fa-sort-down"></i></button>
                 </div>
                 
                 <div v-for="item in cart" :key="item.id">
@@ -38,18 +38,22 @@
                         <div class="course" v-for="item in course" :key="item.id">
                             <div class="d-flex justify-content-between">
                                  <h1>{{item.name}}</h1>
-                                <button @click="showid = item.id">&#11167;</button>
+                                <button @click="showid = item.id"><i class="fas fa-sort-down"></i></button>
                             </div>
                            
                             <div v-show="item.name"> <!--CARD PIATTO-->
                                 <div class="dish" v-for="element in dish" :key="element.id"
-                                v-show="(item.name == element.course.name) && (showid == item.id)">
-                                    <div class="inner-dish">
+                                  v-show="(item.name == element.course.name) && (showid == item.id)">
+                                    <div class="inner-dish-left">
                                         <div><h4>{{element.name}}</h4> </div>
                                         <div><h6>{{element.price}}€</h6></div>
-                                        <div class="add"><button @click="add(element)"><i class="fas fa-times"></i></button></div> 
                                         <hr>
-                                    </div>     
+                                    </div>  
+                                    <div class="inner-dish-right">
+                                        <div class="add">
+                                            <button @click="add(element)"><i class="fas fa-plus"></i></button>
+                                        </div>    
+                                    </div>    
                                
                                 </div>
                             </div>
@@ -61,7 +65,10 @@
                         <div class="course">
                             <h1>carrello</h1>
                             <div v-for="item in cart" :key="item.id">
-                                {{item.name}}<button @click="remove(item)"> &#10006;</button>
+                              <span>{{item.name}}</span><button @click="remove(item)"><i class="fas fa-times"></i></button>   
+                            </div>
+                            <div>
+                              <h4>Totale: {{total}}€</h4>
                             </div>
 
                             <div id="dropin-container"></div>
@@ -85,15 +92,25 @@ export default {
       course: [],
       cart: [],
       showid: 0,
+
       flagModal: false,
       token: "",
       loading: true,
       
 
+
     };
   },
   props: {
       id: Number
+},
+mounted() {
+      if (localStorage.getItem('stroreCart') != []) {
+       this.cart = JSON.parse(localStorage.getItem('storeCart'))
+        if (this.cart[0].restaurant.id != this.id){
+            this.cart = []
+        }
+    }
 },
   created() {
     console.log("Component mounted.");
@@ -101,6 +118,22 @@ export default {
     this.getDish()
     this.getCourse()
     this.getToken()
+
+    
+  
+        
+  },
+  computed: {
+     total() {
+    var sum = 0;
+    this.cart.forEach(e => {
+        sum += e.price;
+    });
+    return sum.toFixed(2);
+    }
+  },
+
+
   },
   mounted() {
         var button = document.querySelector('#submit-button');
@@ -123,6 +156,7 @@ export default {
         // })
         // });
     },
+
   methods: {
     getRestaurant() {
         axios.get("/api/restaurants/" + this.id).then((response) => {
@@ -170,14 +204,20 @@ export default {
                 });
     },
     add(element) {
-        this.cart.push(element) //to do, non vedere i multipli
+        this.cart.push(element)
+        this.saveCart();            //to do, non vedere i multipli
     },
 
     remove(item) {
         let itemId = this.cart.indexOf(item)
         this.cart.splice(itemId, 1)
+        this.saveCart();
+    },
+    saveCart() {
+        localStorage.setItem('storeCart', JSON.stringify(this.cart))
     }
   },
+
 };
 </script>
 
@@ -250,16 +290,13 @@ export default {
         border-radius: 12px;
         padding: 8px;
         margin-top: 12px;
-        .inner-dish div{
+        .dish{
+            display:flex;
             justify-content: space-between;
-            display: inline-block;
-            margin-left: 5px;    
+            align-items: center;   
             
         }
-        .add{
-            justify-content: space-between;
-        }
-        
+       
             
         button {
               background-color: $background2;
