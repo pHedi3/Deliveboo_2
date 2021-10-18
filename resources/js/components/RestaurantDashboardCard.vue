@@ -23,7 +23,7 @@
               {{ address }}
             </p>
             <div class="re-buttons">
-              <button
+              <!-- <button
                 @click="getDishes(rId)"
                 type="submit"
                 class="btn btn-primary button-login"
@@ -31,9 +31,9 @@
                 data-target="#exampleModal"
               >
                 Menu
-              </button>
+              </button> -->
               <!-- Modal -->
-              <div
+              <!-- <div
                 class="modal fade"
                 id="exampleModal"
                 tabindex="-1"
@@ -75,10 +75,10 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="modal-footer">
-                      <!-- INIZIO MODALE NESTED -->
+                    <div class="modal-footer"> -->
+              <!-- INIZIO MODALE NESTED -->
 
-                      <a
+              <!-- <a
                         data-toggle="modal"
                         href="#myModal"
                         class="btn btn-primary"
@@ -99,11 +99,11 @@
                                 ×
                               </button>
                             </div>
-                            <div class="container"></div>
+                            <div class="container"></div> -->
 
-                            <!-- FORM CREATE DISH NESTED -->
+              <!-- FORM CREATE DISH NESTED -->
 
-                            <div class="modal-body">
+              <!-- <div class="modal-body">
                               <form>
                                 <div class="form-group">
                                   <label for="exampleFormControlInput1"
@@ -156,10 +156,10 @@
                                     id="exampleFormControlInput1"
                                   />
                                 </div>
-                              </form>
+                              </form> -->
 
-                              <!-- FINE FORM CREATE DISH NESTED -->
-                            </div>
+              <!-- FINE FORM CREATE DISH NESTED -->
+              <!-- </div>
                             <div class="modal-footer">
                               <a href="#" data-dismiss="modal" class="btn"
                                 >Close</a
@@ -170,26 +170,30 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> -->
 
-                      <!-- FINE NESTED MODALE -->
+              <!-- FINE NESTED MODALE -->
 
-                      <button
+              <!-- <button
                         type="button"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                       >
                         Close
-                      </button>
-                      <button type="button" class="btn btn-primary">
+                      </button> -->
+              <!-- <button type="button" class="btn btn-primary">
                         Save changes
-                      </button>
-                    </div>
+                      </button> -->
+              <!-- </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
 
               <!-- FINE MODALE -->
+
+              <a class="btn btn-primary button-login" :href="'/menù/' + rId"
+                >Modifica Menu</a
+              >
 
               <button type="submit" class="btn btn-primary button-login">
                 Ordini
@@ -211,7 +215,7 @@ export default {
     name: String,
     address: String,
     img: String,
-    category: String,
+    category: Array,
     rId: Number,
   },
   mounted() {
@@ -254,7 +258,9 @@ export default {
   width: 100%;
   height: 100%;
 }
-
+.button-login {
+  margin-bottom: 10px;
+}
 .modal:nth-of-type(even) {
   z-index: 1052 !important;
 }

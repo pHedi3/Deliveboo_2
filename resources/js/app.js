@@ -23,7 +23,7 @@ Vue.component('restaurant-card', require('./components/RestaurantCard.vue').defa
 Vue.component('category-card', require('./components/CategoryCard.vue').default);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('single-restaurant', require('./components/SingleRestaurant.vue').default);
-
+Vue.component('menu-component', require('./components/SingleMenu.vue').default);
 Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
 
 Vue.prototype.$userId = document.querySelector("meta[name='user_id']").getAttribute('content');
