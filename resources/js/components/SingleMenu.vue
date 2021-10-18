@@ -19,33 +19,6 @@
         </div>
       </div>
       <div class="row">
-        <!--CARD PIATTI-->
-        <!-- <div class="course col-sm-12 col-lg-6" v-for="item in course" :key="item.id">
-            <div class="d-flex justify-content-between">
-              <h1>{{ item.name }}</h1>
-              <button @click="showid = item.id">v</button>
-            </div>
-
-            <div v-show="item.name">
-              <div
-                class="dish"
-                v-for="element in dish"
-                :key="element.id"
-                v-show="item.name == element.course.name && showid == item.id"
-              >
-                <div class="inner-dish">
-                  <div>
-                    <h6>{{ element.name }}</h6>
-                  </div>
-                  <div>
-                    <h6>{{ element.price }}€</h6>
-                  </div>
-                </div>
-
-                <button @click="add(element)">+</button>
-              </div>
-            </div>
-          </div> -->
         <div class="accordion col" id="accordionExample">
           <div class="card" v-for="item in course" :key="item.id">
             <div class="card-header" :id="item.name">
@@ -80,7 +53,14 @@
 
                     <!-- TASTO CHE APRE LA MODALE PER MODIFICARE IL PIATTO -->
                     <button
-                      @click="getCourseId(item.id)"
+                      @click="
+                        getCourseId(
+                          item.id,
+                          singleDish.name,
+                          singleDish.ingredients,
+                          singleDish.price
+                        )
+                      "
                       type="button"
                       class="btn btn-primary button-login"
                       data-toggle="modal"
@@ -88,127 +68,6 @@
                     >
                       <i class="fas fa-edit"></i>
                     </button>
-
-                    <!-- <div
-                      class="modal fade"
-                      :id="'exampleModalModify' + singleDish.id"
-                      tabindex="-1"
-                      :aria-labelledby="
-                        'exampleModalLabelModify' + singleDish.id
-                      "
-                      aria-hidden="true"
-                    >
-                      <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5
-                              class="modal-title"
-                              :id="'exampleModalLabelModify' + singleDish.id"
-                            >
-                              Modal title
-                            </h5>
-                            <button
-                              type="button"
-                              class="close"
-                              data-dismiss="modal"
-                              aria-label="Close"
-                            >
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body"> -->
-                    <!-- INIZIO FORM IN MODALE DI MODIFICA -->
-                    <!-- <form>
-                              <div class="form-group">
-                                <label
-                                  :for="'FormNomePiattoModify' + singleDish.id"
-                                  >Nome del piatto</label
-                                >
-                                <input
-                                  v-model="dishName"
-                                  type="text"
-                                  class="form-control"
-                                  :id="'FormNomePiattoModify' + singleDish.id"
-                                />
-                              </div>
-                              <div class="form-group">
-                                <label
-                                  :for="
-                                    'FormControlSelectModify' + singleDish.id
-                                  "
-                                  >Portata</label
-                                >
-                                <select
-                                  class="form-control"
-                                  :id="
-                                    'FormControlSelectModify' + singleDish.id
-                                  "
-                                >
-                                  <option selected>
-                                    {{ item.name }}
-                                  </option>
-                                </select>
-                              </div>
-                              <div class="form-group d-none">
-                                <input
-                                  :value="singleDish.id"
-                                  class="courseId"
-                                  type="text"
-                                />
-                              </div>
-                              <div class="form-group">
-                                <label
-                                  :for="
-                                    'FormControlIngredientsModify' +
-                                    singleDish.id
-                                  "
-                                  >Ingredienti</label
-                                >
-                                <textarea
-                                  v-model="dishIngredients"
-                                  class="form-control"
-                                  :id="
-                                    'FormControlIngredientsModify' +
-                                    singleDish.id
-                                  "
-                                  rows="3"
-                                ></textarea>
-                              </div>
-                              <div class="form-group">
-                                <label
-                                  :for="
-                                    'FormControlPriceModify' + singleDish.id
-                                  "
-                                  >Prezzo</label
-                                >
-                                <input
-                                  v-model="dishPrice"
-                                  type="number"
-                                  class="form-control"
-                                  :id="'FormControlPriceModify' + singleDish.id"
-                                />
-                              </div>
-                            </form> -->
-                    <!-- </div>
-                          <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-secondary"
-                              data-dismiss="modal"
-                            >
-                              Close
-                            </button>
-                            <button
-                              @click="changeDish(singleDish.id)"
-                              type="button"
-                              class="btn btn-primary button-login"
-                            >
-                              Modifica Piatto
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
 
                     <!-- FINE MODALE MODIFICA PIATTI -->
 
@@ -376,7 +235,65 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body"></div>
+                <div class="modal-body">
+                  <!-- INIZIO FORM IN MODALE DI MODIFICA -->
+                  <form>
+                    <div class="form-group">
+                      <label :for="'FormNomePiattoModify' + modaldish.id"
+                        >Nome del piatto</label
+                      >
+                      <input
+                        v-model="dishNameEdit"
+                        type="text"
+                        class="form-control"
+                        :id="'FormNomePiattoModify' + modaldish.id"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label :for="'FormControlSelectModify' + modaldish.id"
+                        >Portata</label
+                      >
+                      <select
+                        class="form-control"
+                        :id="'FormControlSelectModify' + modaldish.id"
+                      >
+                        <option selected>
+                          {{ modaldish.course.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group d-none">
+                      <input
+                        :value="modaldish.id"
+                        class="courseId"
+                        type="text"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label
+                        :for="'FormControlIngredientsModify' + modaldish.id"
+                        >Ingredienti</label
+                      >
+                      <textarea
+                        v-model="dishIngredientsEdit"
+                        class="form-control"
+                        :id="'FormControlIngredientsModify' + modaldish.id"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label :for="'FormControlPriceModify' + modaldish.id"
+                        >Prezzo</label
+                      >
+                      <input
+                        v-model="dishPriceEdit"
+                        type="number"
+                        class="form-control"
+                        :id="'FormControlPriceModify' + modaldish.id"
+                      />
+                    </div>
+                  </form>
+                </div>
                 <div class="modal-footer">
                   <button
                     type="button"
@@ -389,6 +306,7 @@
                     @click="changeDish(modaldish.id)"
                     type="button"
                     class="btn btn-primary button-login"
+                    data-dismiss="modal"
                   >
                     Modifica Piatto
                   </button>
@@ -418,6 +336,9 @@ export default {
       dishCourse: "",
       dishIngredients: "",
       dishPrice: "",
+      dishNameEdit: "",
+      dishIngredientsEdit: "",
+      dishPriceEdit: "",
       getDishId: "",
     };
   },
@@ -455,8 +376,11 @@ export default {
         this.course = response.data;
       });
     },
-    getCourseId(courseid) {
+    getCourseId(courseid, name, ingredients, price) {
       this.dishCourse = courseid;
+      this.dishNameEdit = name;
+      this.dishIngredientsEdit = ingredients;
+      this.dishPriceEdit = price;
     },
     postDish() {
       axios
@@ -475,27 +399,36 @@ export default {
       this.dishPrice = "";
       this.dishIngredients = "";
       this.dishCourse = "";
-      this.getDish();
+      setTimeout(() => {
+        this.getDish();
+      }, 2000);
     },
+    // getDishInfo(name, ingredients, price) {
+    //   this.dishNameEdit = name;
+    //   this.dishIngredientsEdit = ingredients;
+    //   this.dishPriceEdit = price;
+    // },
     changeDish(dishid) {
       this.getDishId = dishid;
       axios
-        .put("/api/dishes" + this.getDishId, {
-          name: this.dishName,
-          price: this.dishPrice,
-          ingredients: this.dishIngredients,
+        .put("/api/dishes/" + this.getDishId, {
+          name: this.dishNameEdit,
+          price: this.dishPriceEdit,
+          ingredients: this.dishIngredientsEdit,
           course_id: this.dishCourse,
           restaurant_id: this.id,
         })
         .then((response) => {
           console.log(response.data.data);
         });
-
-      this.dishName = "";
-      this.dishPrice = "";
-      this.dishIngredients = "";
+      this.dishNameEdit = "";
+      this.dishPriceEdit = "";
+      this.dishIngredientsEdit = "";
       this.dishCourse = "";
       this.getDishId = "";
+      setTimeout(() => {
+        this.getDish();
+      }, 3000);
     },
     destroyDish(dishid) {
       this.getDishId = dishid;
