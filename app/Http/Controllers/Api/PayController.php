@@ -38,7 +38,7 @@ class PayController extends Controller
         
         if ($result->success) {
             $data = [
-                'succes' => true,
+                'success' => true,
                 'message' => "Transazione avvenuta",
                 'id' => $result->transaction->id
             ];
@@ -46,7 +46,7 @@ class PayController extends Controller
 
         }else {
             $data = [
-                'succes' => false,
+                'success' => false,
                 'message' => "Transazione fallita",
             ];
             return response()->json($data,401);
