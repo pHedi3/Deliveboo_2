@@ -41,7 +41,7 @@
                                 <button @click="showid = item.id"><i class="fas fa-sort-down"></i></button>
                             </div>
                            
-                            <div v-show="item.name"> <!--CARD PIATTO-->
+                            <div :class="item.name"> <!--CARD PIATTO-->
                                 <div class="dish" v-for="element in dish" :key="element.id"
                                   v-show="(item.name == element.course.name) && (showid == item.id)">
                                     <div class="inner-dish-left">
@@ -68,7 +68,7 @@
                               <span>{{item.name}}</span><button @click="remove(item)"><i class="fas fa-times"></i></button>   
                             </div>
                             <div>
-                              <h4>Totale: {{total}}€</h4>
+                              <h4>Totale: {{totalPrice}}€</h4>
                             </div>
 
                             <div id="dropin-container"></div>
@@ -85,138 +85,103 @@
 
 <script>
 export default {
-  data() {
-    return {
-      restaurant: {},
-      dish: [],
-      course: [],
-      cart: [],
-      showid: 0,
+    data() {
+        return {
+        restaurant: {},
+        dish: [],
+        course: [],
+        cart: [],
+        showid: 0,
+        flagModal: false,
+        token: "",
 
-      flagModal: false,
-      token: "",
-      loading: true,
-      
-
-
-    };
-  },
-  props: {
+        };
+    },
+    props: {
       id: Number
-},
-mounted() {
-      if (localStorage.getItem('stroreCart') != []) {
-       this.cart = JSON.parse(localStorage.getItem('storeCart'))
-        if (this.cart[0].restaurant.id != this.id){
-            this.cart = []
+    }, 
+    created() {
+        console.log("Component mounted.");
+        this.getRestaurant()
+        this.getDish()
+        this.getCourse()
+        this.getToken()
+
+    },
+    computed: {
+        totalPrice() {
+            let totalPrice = 0
+            this.cart.forEach((dish) => {
+                totalPrice += dish.price
+            })
+            return totalPrice.toFixed(2)
         }
-    }
-},
-  created() {
-    console.log("Component mounted.");
-    this.getRestaurant()
-    this.getDish()
-    this.getCourse()
-    this.getToken()
-
-    
-  
-        
-  },
-  computed: {
-     total() {
-    var sum = 0;
-    this.cart.forEach(e => {
-        sum += e.price;
-    });
-    return sum.toFixed(2);
-    }
-  },
-
-
-  },
-  mounted() {
-        var button = document.querySelector('#submit-button');
-        var cart = this.cart
-        var token = this.token
-        // console.log(this.token)
-        // braintree.dropin.create({
-        // authorization: this.token,
-        // selector: '#dropin-container'
-        // }, function (err, instance) {
-        // button.addEventListener('click', function () {
-        //     instance.requestPaymentMethod(function (err, payload) {
-        //         axios.post("/api/sendpay", {
-        //             'token': payload.nonce,
-        //             'cart': cart
-        //         }).then((response) => {
-        //             console.log(response.data);
-        //         });
-        //     });
-        // })
-        // });
     },
+    mounted() {
+        this.cart = JSON.parse(localStorage.getItem('storeCart'))
+            if (this.cart[0].restaurant.id != this.id){
+                this.cart = []
+            }
 
-  methods: {
-    getRestaurant() {
-        axios.get("/api/restaurants/" + this.id).then((response) => {
-            console.log(response.data.data);
-            this.restaurant = response.data.data
-        });
     },
-    getDish() {
-        axios.get("/api/dishes/" + this.id).then((response) => {
-            console.log(response.data.data);
-            this.dish = response.data.data
+    methods: {
+        getRestaurant() {
+            axios.get("/api/restaurants/" + this.id).then((response) => {
+                console.log(response.data.data);
+                this.restaurant = response.data.data
+            });
+        },
+        getDish() {
+            axios.get("/api/dishes/" + this.id).then((response) => {
+                console.log(response.data.data);
+                this.dish = response.data.data
 
-        });
-    },
-    getCourse() {
-        axios.get("/api/courses").then((response) => {
-            console.log(response.data.data);
-            this.course = response.data
-        });
-    },
-    getToken() {
-        axios.get("/api/pay").then((response) => {
-            console.log(response.data.data);
-            this.token = response.data.token
-            console.log(typeof( this.token))
+            });
+        },
+        getCourse() {
+            axios.get("/api/courses").then((response) => {
+                console.log(response.data.data);
+                this.course = response.data
+            });
+        },
+        getToken() {
+            axios.get("/api/pay").then((response) => {
+                console.log(response.data.data);
+                this.token = response.data.token
                 var button = document.querySelector('#submit-button');
                 var cart = this.cart
                 var token = this.token
-                console.log(this.token)
                 braintree.dropin.create({
-                authorization: this.token,
-                selector: '#dropin-container'
-                }, function (err, instance) {
-                button.addEventListener('click', function () {
-                    instance.requestPaymentMethod(function (err, payload) {
-                        axios.post("/api/sendpay", {
-                            'token': payload.nonce,
-                            'cart': cart
-                        }).then((response) => {
-                            console.log(response.data);
+                    authorization: this.token,
+                    selector: '#dropin-container'
+                    }, function (err, instance) {
+                    button.addEventListener('click', function () {
+                        instance.requestPaymentMethod(function (err, payload) {
+                            axios.post("/api/sendpay", {
+                                'token': payload.nonce,
+                                'cart': cart
+                            }).then((response) => {
+                                console.log(response.data);
+                            });
                         });
-                    });
-                })
+                    })
                 });
-                });
-    },
-    add(element) {
-        this.cart.push(element)
-        this.saveCart();            //to do, non vedere i multipli
-    },
+            });
+        },
+        add(element) {
+            this.cart.push(element)
+            this.saveCart();            //to do, non vedere i multipli
+        },
 
-    remove(item) {
-        let itemId = this.cart.indexOf(item)
-        this.cart.splice(itemId, 1)
-        this.saveCart();
-    },
-    saveCart() {
-        localStorage.setItem('storeCart', JSON.stringify(this.cart))
+        remove(item) {
+            let itemId = this.cart.indexOf(item)
+            this.cart.splice(itemId, 1)
+            this.saveCart();
+        },
+        saveCart() {
+            localStorage.setItem('storeCart', JSON.stringify(this.cart))
+        }
     }
-  },
 
 };
 </script>
