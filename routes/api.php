@@ -30,3 +30,4 @@ Route::get('orderrestaurant/{id}', 'Api\OrderController@orderRestaurant');
 Route::get('userRestaurant/{id}', 'Api\RestaurantController@userRestaurant');
 
 Route::get('pay', 'Api\PayController@generate');
+Route::post('sendpay', 'Api\PayController@payment');
