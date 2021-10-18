@@ -1,5 +1,5 @@
 <template>
-    <div class="back">
+    <div class="back" >
         <div class="mymodal d-md-none p-1" v-show="flagModal">
             <div class="course">
                 <div class="d-flex justify-content-between">
@@ -63,9 +63,12 @@
                             <div v-for="item in cart" :key="item.id">
                                 {{item.name}}<button @click="remove(item)"> &#10006;</button>
                             </div>
-                           
+
+                            <div id="dropin-container"></div>
+                            <button id="submit-button" class="button button--small button--green">Purchase</button>
+
+
                         </div>
-                        
                     </div>
             </div>
         </div>
@@ -82,7 +85,9 @@ export default {
       course: [],
       cart: [],
       showid: 0,
-      flagModal: false
+      flagModal: false,
+      token: "",
+      loading: true,
       
 
     };
@@ -95,7 +100,29 @@ export default {
     this.getRestaurant()
     this.getDish()
     this.getCourse()
+    this.getToken()
   },
+  mounted() {
+        var button = document.querySelector('#submit-button');
+        var cart = this.cart
+        var token = this.token
+        // console.log(this.token)
+        // braintree.dropin.create({
+        // authorization: this.token,
+        // selector: '#dropin-container'
+        // }, function (err, instance) {
+        // button.addEventListener('click', function () {
+        //     instance.requestPaymentMethod(function (err, payload) {
+        //         axios.post("/api/sendpay", {
+        //             'token': payload.nonce,
+        //             'cart': cart
+        //         }).then((response) => {
+        //             console.log(response.data);
+        //         });
+        //     });
+        // })
+        // });
+    },
   methods: {
     getRestaurant() {
         axios.get("/api/restaurants/" + this.id).then((response) => {
@@ -107,6 +134,7 @@ export default {
         axios.get("/api/dishes/" + this.id).then((response) => {
             console.log(response.data.data);
             this.dish = response.data.data
+
         });
     },
     getCourse() {
@@ -115,9 +143,36 @@ export default {
             this.course = response.data
         });
     },
+    getToken() {
+        axios.get("/api/pay").then((response) => {
+            console.log(response.data.data);
+            this.token = response.data.token
+            console.log(typeof( this.token))
+                var button = document.querySelector('#submit-button');
+                var cart = this.cart
+                var token = this.token
+                console.log(this.token)
+                braintree.dropin.create({
+                authorization: this.token,
+                selector: '#dropin-container'
+                }, function (err, instance) {
+                button.addEventListener('click', function () {
+                    instance.requestPaymentMethod(function (err, payload) {
+                        axios.post("/api/sendpay", {
+                            'token': payload.nonce,
+                            'cart': cart
+                        }).then((response) => {
+                            console.log(response.data);
+                        });
+                    });
+                })
+                });
+                });
+    },
     add(element) {
         this.cart.push(element) //to do, non vedere i multipli
     },
+
     remove(item) {
         let itemId = this.cart.indexOf(item)
         this.cart.splice(itemId, 1)
