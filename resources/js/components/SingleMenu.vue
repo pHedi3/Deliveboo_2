@@ -1,17 +1,5 @@
 <template>
   <div class="back">
-    <div class="mymodal d-md-none p-1" v-show="flagModal">
-      <div class="course">
-        <div class="d-flex justify-content-between">
-          <h1>carrello</h1>
-          <button @click="flagModal = !flagModal">x</button>
-        </div>
-
-        <div v-for="item in cart" :key="item.id">
-          {{ item.name }}
-        </div>
-      </div>
-    </div>
     <div class="container">
       <div class="row p-2">
         <div class="col-6 col-md-12 p-2">
@@ -30,11 +18,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-6 d-md-none">
-          <div class="course" @click="flagModal = !flagModal">
-            <h1>carrello</h1>
-          </div>
-        </div> -->
       <div class="row">
         <!--CARD PIATTI-->
         <!-- <div class="course col-sm-12 col-lg-6" v-for="item in course" :key="item.id">
@@ -106,7 +89,7 @@
                       <i class="fas fa-edit"></i>
                     </button>
 
-                    <div
+                    <!-- <div
                       class="modal fade"
                       :id="'exampleModalModify' + singleDish.id"
                       tabindex="-1"
@@ -133,9 +116,9 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <div class="modal-body">
-                            <!-- INIZIO FORM IN MODALE DI MODIFICA -->
-                            <form>
+                          <div class="modal-body"> -->
+                    <!-- INIZIO FORM IN MODALE DI MODIFICA -->
+                    <!-- <form>
                               <div class="form-group">
                                 <label
                                   :for="'FormNomePiattoModify' + singleDish.id"
@@ -205,8 +188,8 @@
                                   :id="'FormControlPriceModify' + singleDish.id"
                                 />
                               </div>
-                            </form>
-                          </div>
+                            </form> -->
+                    <!-- </div>
                           <div class="modal-footer">
                             <button
                               type="button"
@@ -216,7 +199,7 @@
                               Close
                             </button>
                             <button
-                              @click="changeDish()"
+                              @click="changeDish(singleDish.id)"
                               type="button"
                               class="btn btn-primary button-login"
                             >
@@ -225,11 +208,14 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                     <!-- FINE MODALE MODIFICA PIATTI -->
 
-                    <button class="btn btn-primary button-login">
+                    <button
+                      @click="destroyDish(singleDish.id)"
+                      class="btn btn-primary button-login"
+                    >
                       <i class="fas fa-trash-alt"></i>
                     </button>
                   </li>
@@ -363,14 +349,56 @@
           </div>
         </div>
 
-        <!-- <div class="col-6 d-md-block d-none">
-          <div class="course">
-            <h1>carrello</h1>
-            <div v-for="item in cart" :key="item.id">
-              {{ item.name }}
+        <!-- LOOP SEPARATO PER LE MODALI DI MODIFICA PIATTO -->
+        <div v-for="modaldish in dish" :key="modaldish.id">
+          <div
+            class="modal fade"
+            :id="'exampleModalModify' + modaldish.id"
+            tabindex="-1"
+            :aria-labelledby="'exampleModalLabelModify' + modaldish.id"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5
+                    class="modal-title"
+                    :id="'exampleModalLabelModify' + modaldish.id"
+                  >
+                    Modal title
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    @click="changeDish(modaldish.id)"
+                    type="button"
+                    class="btn btn-primary button-login"
+                  >
+                    Modifica Piatto
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div> -->
+        </div>
+
+        <!-- FINE LOOP MODALI MODIFICA PIATTO -->
       </div>
     </div>
   </div>
@@ -390,6 +418,7 @@ export default {
       dishCourse: "",
       dishIngredients: "",
       dishPrice: "",
+      getDishId: "",
     };
   },
   props: {
@@ -448,9 +477,10 @@ export default {
       this.dishCourse = "";
       this.getDish();
     },
-    changeDish() {
+    changeDish(dishid) {
+      this.getDishId = dishid;
       axios
-        .put("/api/dishes" + this.dish.id, {
+        .put("/api/dishes" + this.getDishId, {
           name: this.dishName,
           price: this.dishPrice,
           ingredients: this.dishIngredients,
@@ -465,6 +495,15 @@ export default {
       this.dishPrice = "";
       this.dishIngredients = "";
       this.dishCourse = "";
+      this.getDishId = "";
+    },
+    destroyDish(dishid) {
+      this.getDishId = dishid;
+      axios.delete("/api/dishes/" + this.getDishId).then((response) => {
+        console.log(response);
+      });
+      this.getDish();
+      this.getDishId = "";
     },
   },
 };
@@ -522,13 +561,6 @@ export default {
 
 .back {
   background-color: $background;
-  .mymodal {
-    position: fixed;
-    z-index: 1001;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba($color: #0000, $alpha: 0.8);
-  }
   .course {
     background-color: rgba($color: #ffffff, $alpha: 0.8);
     border-radius: 12px;
