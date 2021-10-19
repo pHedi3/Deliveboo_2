@@ -25,6 +25,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('single-restaurant', require('./components/SingleRestaurant.vue').default);
 Vue.component('menu-component', require('./components/SingleMenu.vue').default);
 Vue.component('dashboard-component', require('./components/DashboardComponent.vue').default);
+Vue.component('orders-component', require('./components/OrdersComponent.vue').default);
 
 Vue.prototype.$userId = document.querySelector("meta[name='user_id']").getAttribute('content');
 /**
