@@ -18,6 +18,7 @@
           </div>
         </div>
       </div>
+      <ValidationErrors :errors="validationErrors" v-show="validationErrors" />
       <div class="row">
         <div class="accordion col" id="accordionExample">
           <div class="card" v-for="item in course" :key="item.id">
@@ -323,7 +324,10 @@
 </template>
 
 <script>
+import ValidationErrors from "./ValidationErrors.vue";
+
 export default {
+  components: { ValidationErrors },
   data() {
     return {
       restaurant: {},
@@ -340,6 +344,7 @@ export default {
       dishIngredientsEdit: "",
       dishPriceEdit: "",
       getDishId: "",
+      validationErrors: "",
     };
   },
   props: {
@@ -393,6 +398,11 @@ export default {
         })
         .then((response) => {
           console.log(response.data.data);
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.validationErrors = error.response.data.errors;
+          }
         });
 
       this.dishName = "";
@@ -420,6 +430,11 @@ export default {
         })
         .then((response) => {
           console.log(response.data.data);
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.validationErrors = error.response.data.errors;
+          }
         });
       this.dishNameEdit = "";
       this.dishPriceEdit = "";
