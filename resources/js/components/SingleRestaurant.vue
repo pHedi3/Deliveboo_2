@@ -15,9 +15,17 @@
               <i class="fas fa-sort-down"></i>
             </button>
           </div>
-          <div v-for="item in cart" :key="item.id">
-            {{ item.name }}
+          <div v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
+            <span>{{ item.name }}</span>
+            <span>{{ item.quantity }}</span>
+            <button @click="remove(item)">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
+          <div>
+            <h4 v-show="flagReload">Totale: {{ allPrice }}€</h4>
+          </div>
+          <button @click="flagCheck = !flagCheck; flagModal = !flagModal">completa l'ordine</button>
 
           <!-- to do fare la parte della gestione delle quantità -->
         </div>
@@ -29,52 +37,67 @@
               <div class="course">
                 <div class="d-flex justify-content-between">
                   <h1>Completa l'ordine</h1>
-                  <button @click="flagCheck = !flagCheck">
+                  <button @click="flagCheck = !flagCheck; sendJson = {}; stepOne = true; stepTwo= false; stepThree= false">
                     <i class="fas fa-sort-down"></i>
                   </button>
                 </div>
+                <div class="order" v-show="stepOne">
+                <div v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
+                  <span>{{ item.name }}</span>
+                  <input type="number" v-model="item.quantity">
+                  <button @click="remove(item)">
+                  <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                  <h4>Totale: {{ allPrice }}€</h4>
+                  <button @click="stepOne=false; stepTwo=true">Prossimo passo</button>
+                </div>
+                <div class="error" v-show="stepTwo">
+                    <h5 v-for="(error, index) in errorText" :key="index">{{error}}</h5>
+                </div>
+                <div class="input" v-show="stepTwo">
+                  <div>
+                    <label for="name">inserisci nome</label>
+                    <input type="text" id="name" v-model="name" />
+                  </div>
+                  <div>
+                    <label for="surname">inserisci cognome</label>
+                    <input type="text" id="surname" v-model="surname" />
+                  </div>
+                  <div>
+                    <label for="address">inserisci indirizzo</label>
+                    <input type="text" id="address" v-model="address" />
+                  </div>
+                  <div>
+                    <label for="phone">inserisci numero</label>
+                    <input type="text" id="phone" v-model="phone" />
+                  </div>
+                  <div>
+                    <label for="email">inserisci email</label>
+                    <input type="text" id="email" v-model="email" />
+                  </div>
+                  <div>
+                    <label for="discount">inserisci discount</label>
+                    <input type="text" id="discount" v-model="discount" />
+                  </div>
+                  <div>
+                    <label for="notes">inserisci note</label>
+                    <input type="text" id="notes" v-model="notes" />
+                  </div>
+                  <button @click="myJson()">prossimo passo</button>
+                </div>
+                <div class="pay" v-show="stepThree">
+                  <h4 v-show="flagToken">Attendi..</h4>
+                  <h4>Totale: {{ allPrice }}€</h4>
+                  <div id="dropin-container"></div>
+                  <button @click="stepThree=false; flagCheck= !flagCheck; cart = []; flagToken = true"
+                    id="submit-button"
+                    class="button button--small button--green"
+                  >
+                    Purchase
+                  </button>
 
-                <div v-for="item in cart" :key="item.id">
-                  {{ item.name }}
                 </div>
-                <div>
-                  <label for="name">inserisci nome</label>
-                  <input type="text" id="name" v-model="name" />
-                </div>
-                <div>
-                  <label for="surname">inserisci cognome</label>
-                  <input type="text" id="surname" v-model="surname" />
-                </div>
-                <div>
-                  <label for="address">inserisci indirizzo</label>
-                  <input type="text" id="address" v-model="address" />
-                </div>
-                <div>
-                  <label for="phone">inserisci numero</label>
-                  <input type="text" id="phone" v-model="phone" />
-                </div>
-                <div>
-                  <label for="email">inserisci email</label>
-                  <input type="text" id="email" v-model="email" />
-                </div>
-                <div>
-                  <label for="discount">inserisci discount</label>
-                  <input type="text" id="discount" v-model="discount" />
-                </div>
-                <div>
-                  <label for="notes">inserisci note</label>
-                  <input type="text" id="notes" v-model="notes" />
-                </div>
-                <button @click="getToken">prossimo passo</button>
-
-                <h4>Totale: {{ totalPrice }}</h4>
-                <div id="dropin-container"></div>
-                <button
-                  id="submit-button"
-                  class="button button--small button--green"
-                >
-                  Purchase
-                </button>
               </div>
             </div>
           </div>
@@ -143,23 +166,17 @@
           <div class="col-6 d-md-block d-none">
             <div class="course">
               <h1>carrello</h1>
-              <div v-for="item in cart" :key="item.id">
-                <span>{{ item.name }}</span
-                ><button @click="remove(item)">
+              <div v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
+                <span>{{ item.name }}</span>
+                <span>{{ item.quantity }}</span>
+                <button @click="remove(item)">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
               <div>
-                <h4>Totale: {{ totalPrice }}€</h4>
+                <h4 v-show="flagReload">Totale: {{ allPrice }}€</h4>
               </div>
               <button @click="flagCheck = !flagCheck">completa l'ordine</button>
-              <div id="dropin-container"></div>
-              <button
-                id="submit-button"
-                class="button button--small button--green"
-              >
-                Purchase
-              </button>
             </div>
           </div>
         </div>
@@ -196,6 +213,15 @@ export default {
       text: "",
       paid: false,
       sendJson: null,
+      errorText: [],
+      allOk: true,
+      stepThree: false,
+      stepTwo: false,
+      stepOne: true,
+      flagToken: true,
+      flagReload: true,
+      allPrice: 0
+
     };
   },
   props: {
@@ -208,20 +234,13 @@ export default {
     this.getCourse();
   },
   computed: {
-    totalPrice() {
-      var totalPrice = 0;
-      this.cart.forEach((dish) => {
-        totalPrice += dish.price;
-      });
-      return totalPrice.toFixed(2);
-    },
     checkPay() {
       var text = document.getElementById("risultato").textContent;
       if (text == "transizione avvenuta") {
         return false;
       }
       return true;
-    },
+    }
   },
   mounted() {
     if (JSON.parse(localStorage.getItem("storeCart")) != null) {
@@ -234,6 +253,13 @@ export default {
     }
   },
   methods: {
+    totalPrice() {
+      this.allPrice = 0;
+      this.cart.forEach((dish) => {
+        this.allPrice += dish.price * dish.quantity;
+      });
+      this.allPrice.toFixed(2);
+    },
     getRestaurant() {
       axios.get("/api/restaurants/" + this.id).then((response) => {
         console.log(response.data.data);
@@ -256,7 +282,6 @@ export default {
       });
     },
     getToken() {
-      this.myJson();
       axios.get("/api/pay").then((response) => {
         console.log(response.data.data);
         this.token = response.data.token;
@@ -264,6 +289,7 @@ export default {
         var token = this.token;
         let cart = this.cart;
         var order = this.sendJson;
+        this.flagToken = false;
         braintree.dropin.create(
           {
             authorization: this.token,
@@ -294,32 +320,73 @@ export default {
       });
     },
     add(element) {
-      this.cart.push(element);
+      this.flagReload = false
+      this.flagReload = true
+      if (this.cart.includes(element)) {
+        let index = this.cart.indexOf(element)
+        this.cart[index].quantity += 1
+      } else {
+        let dish = element
+        dish.quantity = 1
+        this.cart.push(dish);
+      }
       this.saveCart();
-      console.log(this.myJson); //to do, non vedere i multipli
+      this.totalPrice()
     },
 
     remove(item) {
       let itemId = this.cart.indexOf(item);
       this.cart.splice(itemId, 1);
       this.saveCart();
+      this.totalPrice()
+
     },
     saveCart() {
       localStorage.setItem("storeCart", JSON.stringify(this.cart));
     },
     myJson() {
-      this.sendJson = {
-        name: this.name,
-        surname: this.surname,
-        address: this.address,
-        email: this.email,
-        phone: this.phone,
-        price: this.totalPrice,
-        status: "paid",
-        discount: this.discount,
-        notes: this.notes,
-        dish: this.cart,
-      };
+      this.errorText = []
+      if (this.name == "") {
+        this.errorText.push('Devi inserire il nome')
+        this.allOk  = false
+      }
+      if (this.surname == "") {
+        this.errorText.push('Devi inserire il cognome')
+        this.allOk  = false
+      }
+      if (this.address == "") {
+        this.errorText.push('Devi inserire l\'indirizzo')
+        this.allOk  = false
+      }
+      if (this.email == "") {
+        this.errorText.push('Devi inserire il email')
+        this.allOk  = false
+      }
+      if (this.phone == "") {
+        this.errorText.push('Devi inserire il telefono')
+        this.allOk  = false
+      }
+      if (!this.email.includes('@') && !this.email.includes('.')) {
+        this.errorText.push('Devi inserire una email valida')
+        this.allOk  = false
+      }
+      if (this.allOk) {
+        this.stepTwo = false
+        this.stepThree = true
+        this.sendJson = {
+          name: this.name,
+          surname: this.surname,
+          address: this.address,
+          email: this.email,
+          phone: this.phone,
+          price: this.allPrice,
+          status: "paid",
+          discount: this.discount,
+          notes: this.notes,
+          dish: this.cart,
+        };
+        this.getToken()
+      }
     },
   },
 };
@@ -423,6 +490,21 @@ export default {
       &:visited {
         box-shadow: 0 0 2px 2px $main-title !important;
       }
+    }
+  }
+}
+.error {
+  background-color: rgb(255, 113, 113);
+  h5 {
+    font-size: 14px;
+    color: black;
+    padding: 6px 12px;
+    margin: 0;
+    &:first-child {
+      padding: 12px 12px 6px;
+    }
+    &:last-child {
+      padding: 6px 12px 12px;
     }
   }
 }

@@ -41,7 +41,7 @@ class OrderController extends Controller
         $this->fillAndSave($newOrder, $data);
 
         foreach ($data['dish'] as $dish) {
-            $newOrder->dish()->attach($dish['id'], ['quantity' => 1]);
+            $newOrder->dish()->attach($dish['id'], ['quantity' => $dish['quantity']]);
         }
 
 
