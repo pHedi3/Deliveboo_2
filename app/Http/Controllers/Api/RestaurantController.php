@@ -40,6 +40,12 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:100',
+            'address' => 'required|max:255',
+            'user_id' => 'required',
+            'category_id' => 'required'
+        ]);
         //return response()->json($request);
         $data = $request->all();
 
@@ -77,6 +83,12 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required|max:100',
+            'address' => 'required|max:255',
+            'user_id' => 'required',
+            'category_id' => 'required'
+        ]);
         $data = $request->all();
         $restaurant = Restaurant::find($id);
 

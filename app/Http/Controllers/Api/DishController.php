@@ -37,6 +37,13 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:50',
+            'price' => 'required|numeric',
+            'ingredients' => 'required',
+            'course_id' => 'required',
+            'restaurant_id' => 'required'
+        ]);
         $data = $request->all();
 
 
@@ -79,6 +86,14 @@ class DishController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+        $request->validate([
+            'name' => 'required|max:50',
+            'price' => 'required|numeric',
+            'ingredients' => 'required',
+            'course_id' => 'required',
+            'restaurant_id' => 'required'
+        ]);
         $data = $request->all();
         $dish = Dish::find($id);
 
