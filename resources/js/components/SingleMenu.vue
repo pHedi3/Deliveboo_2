@@ -18,7 +18,6 @@
           </div>
         </div>
       </div>
-      <ValidationErrors :errors="validationErrors" v-show="validationErrors" />
       <div class="row">
         <div class="accordion col" id="accordionExample">
           <div class="card" v-for="item in course" :key="item.id">
@@ -121,6 +120,10 @@
                         </button>
                       </div>
                       <div class="modal-body">
+                        <ValidationErrors
+                          :errors="validationErrors"
+                          v-if="validationErrors"
+                        />
                         <!-- INIZIO FORM IN MODALE -->
                         <form>
                           <div class="form-group">
@@ -237,6 +240,10 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                  <ValidationErrors
+                    :errors="validationErrors"
+                    v-if="validationErrors"
+                  />
                   <!-- INIZIO FORM IN MODALE DI MODIFICA -->
                   <form>
                     <div class="form-group">

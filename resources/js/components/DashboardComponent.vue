@@ -37,6 +37,10 @@
                 </button>
               </div>
               <div class="modal-body">
+                <ValidationErrors
+                  :errors="validationErrors"
+                  v-if="validationErrors"
+                />
                 <form>
                   <div class="form-group">
                     <label for="exampleInputEmail1"
@@ -173,10 +177,11 @@
 </template>
 <script>
 import RestaurantDashboardCard from "./RestaurantDashboardCard.vue";
+import ValidationErrors from "./ValidationErrors.vue";
 
 export default {
   props: ["app"],
-  components: { RestaurantDashboardCard },
+  components: { RestaurantDashboardCard, ValidationErrors },
   data() {
     return {
       restaurants: [],
@@ -186,6 +191,7 @@ export default {
       newResturantAddress: "",
       checkedCategory: [],
       flegNewRestaurant: false,
+      validationErrors: "",
     };
   },
   mounted() {
@@ -214,6 +220,11 @@ export default {
         })
         .then((response) => {
           this.getRestaurant();
+        })
+        .catch((error) => {
+          if (error.response.status == 422) {
+            this.validationErrors = error.response.data.errors;
+          }
         });
       this.flegNewRestaurant = false;
     },
