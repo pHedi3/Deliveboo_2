@@ -17,6 +17,11 @@
             </div>
           </div>
         </div>
+        <div class="col-6 col-md-2 p-2">
+          <a href="/dashboard" class="btn btn-primary button-login">
+            Vai alla Dashboard
+          </a>
+        </div>
       </div>
       <div class="row">
         <div class="accordion col" id="accordionExample">

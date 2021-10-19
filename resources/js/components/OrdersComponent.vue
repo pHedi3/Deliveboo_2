@@ -1,6 +1,13 @@
 <template>
   <div class="bg">
     <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-2 p-2">
+          <a href="/dashboard" class="btn btn-primary button-login">
+            Vai alla Dashboard
+          </a>
+        </div>
+      </div>
       <div
         v-for="(order, index) in orders"
         :key="order.id"
