@@ -26,9 +26,16 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:50',
+            'surname' => 'required|max:50',
+            'address' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|max:20',
+            'price' => 'required|numeric',
+            'status' => 'required|max:20',
+        ]);
         $data = $request->all();
-
-
         $newOrder = new Order();
         $output = "";
         $this->fillAndSave($newOrder, $data);
