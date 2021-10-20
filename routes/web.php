@@ -40,3 +40,4 @@ Route::get('/orders/{id}', 'OrderController@show')->middleware('auth');;
 Route::get('/stats/{id}', 'StatsController@show')->middleware('auth');;
 
 Route::get('/restaurant/{id}', 'RestaurantController@show');
+
