@@ -16,7 +16,7 @@
             <h5 class="card-title">INFO</h5>
             <div class="card-text">
               <ol>
-                <li v-for="dish in dishes" :key="dish.id">{{ dish.name }}</li>
+                <li v-for="dish in dishes" :key="dish.id">{{ dish.name }} x {{dish.pivot.quantity}}</li>
               </ol>
             </div>
           </div>
