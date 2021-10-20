@@ -27,9 +27,6 @@ class OrderResource extends JsonResource
             'notes'=>$this->notes,
             'restaurant'=>$this->dish[0]->restaurant,
             'dishes' =>$this->dish,
-            
-            
-
         ];
     }
 }

@@ -25,7 +25,7 @@ class PayController extends Controller
         $totalPrice = 0;
         foreach ($request->cart as $dish) {
             $dishTrue = Dish::find($dish['id']);
-            $totalPrice += $dishTrue->price * $dishTrue->quantity;
+            $totalPrice += $dishTrue->price * $dish['quantity'];
         }
 
         $result = $gateway->transaction()->sale([
@@ -51,6 +51,5 @@ class PayController extends Controller
             ];
             return response()->json($data,401);
         }
-        return response()->json($request);
     }
 }

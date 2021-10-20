@@ -8,7 +8,7 @@ class order extends Model
 {
     public function dish()
     {
-        return $this->belongsToMany(Dish::class);
+        return $this->belongsToMany(Dish::class)->withPivot('quantity');
     }
 
     protected $fillable = [
