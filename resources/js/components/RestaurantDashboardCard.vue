@@ -34,9 +34,13 @@
               >
                 Ordini
               </a>
-              <button type="submit" class="btn btn-primary button-login">
+              <a
+                :href="'/stats/' + rId"
+                type="submit"
+                class="btn btn-primary button-login"
+              >
                 Statistiche
-              </button>
+              </a>
             </div>
           </div>
         </div>
