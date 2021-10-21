@@ -5,7 +5,7 @@
     <div class="container ">
         <div class="row justify-content-center container-login">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card login-media">
                     <div class="card-header bg-login">{{ __('Login') }}</div>
 
                     <div class="card-body">

@@ -40,3 +40,33 @@
         
     }
 }
+
+@media screen and (max-height: 477px) {
+    .register-media{
+        height: 250px;
+        .card-body{
+            overflow: auto;
+        }
+    }
+}
+
+@media screen and (min-height: 478px) and (max-height: 600px){
+    .register-media{
+        height: 350px;
+        .card-body{
+            overflow: auto;
+        }
+    }
+}
+
+
+    
+@media screen and (min-height: 601px) and (max-height: 900px) {
+    .register-media{
+        height: 450px;
+        .card-body{
+            overflow: auto;
+        }
+    }
+}
+       

@@ -1,66 +1,75 @@
 <template>
-    <canvas id="bestChart"></canvas>
+  <canvas id="bestChart"></canvas>
 </template>
 
 <script>
-
-import Chart from 'chart.js/auto'
+import Chart from "chart.js/auto";
 export default {
   props: {
-      bestName: Array,
-      bestData: Array
+    bestName: Array,
+    bestData: Array,
   },
   mounted() {
-      this.renderChart()
-
+    this.renderChart();
   },
   data() {
-    return {
-
-    };
+    return {};
   },
   methods: {
     renderChart() {
-        new Chart(document.getElementById('bestChart').getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: this.bestName,
-                datasets: [{
-                    label: 'piatti per mese corrente',
-                    data: this.bestData,
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
+      new Chart(document.getElementById("bestChart").getContext("2d"), {
+        type: "bar",
+        data: {
+          labels: this.bestName,
+          datasets: [
+            {
+              label: "Numero piatti",
+              data: this.bestData,
+              backgroundColor: [
+                "rgba(0, 0,	255, 0.2)",
+                "rgba(51, 51, 255,	0.2)",
+                "rgba(92, 92, 255, 0.2)",
+                "rgba(125, 125, 255, 0.2)",
+                "rgba(151, 151, 255, 0.2)",
+                "rgba(172, 172, 255, 0.2)",
+              ],
+              borderColor: [
+                "rgba(0, 0,	255, 1)",
+                "rgba(51, 51, 255,	1)",
+                "rgba(92, 92, 255, 1)",
+                "rgba(125, 125,	255, 1)",
+                "rgba(151, 151, 255, 1)",
+                "rgba(172, 172, 255, 1)",
+              ],
+              borderWidth: 1,
             },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-                })
-        }
-        
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Report vendite piatti mensili",
+              font: {
+                size: 30,
+              },
+            },
+            legend: {
+              display: true,
+              position: "right",
+            },
+          },
+        },
+      });
     },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
 </style>

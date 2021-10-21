@@ -40,3 +40,14 @@
         
     }
 }
+
+
+@media screen and (max-height: 470px) {
+    .login-media{
+        height: 200px;
+        .card-body{
+            overflow: auto;
+        }
+    }
+}
+
