@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <statsorders :sendOrder="sendOrder" class="col-6" />
+            <statsorders v-if="flagOrder" :orderLabel="orderLabel" :orderData="orderData" class="col-6" />
             <statsbest class="col-6" />
 
         </div>
@@ -23,53 +23,30 @@ export default {
   },
   mounted() {
       this.getOrder()
-
   },
   data() {
     return {
-        allOrders: [],
-        moneyForMonth: [],
-        sendOrder: []
-
+        sendOrder: [],
+        orderLabel: [],
+        orderData: [],
+        flagOrder: false
     };
   },
   methods: {
-    manageData() {
-        this.allOrders.forEach((order) => {
-            let year = order.data.split('-')[0] 
-            let month = order.data.split('-')[1] 
-            let money = {
-                'money': order.total_price,
-                'year': year,
-                'month':  month
-            }
-            this.moneyForMonth.push(money)
-        })
-        this.moneyForMonth.forEach((order, index) => {
-            if (index == 0) {
-                this.sendOrder.push(order)
-            } else {
-                this.sendOrder.forEach((element) => {
-                    if (order.month != element.month && order.year != order.year) {
-                        this.sendOrder.push(order)
-                    } else {
-                        element.money += order.money
-                        console.log(element)
-                    }
-                });
-            }
-        })
-        // this.sendOrder.sort(function(a, b) {
-        //     return a.month - b.month;
-        // })
-    },
     getOrder() {
-        axios.get("/api/orderrestaurant/" + this.id).then((response) => {
-        this.allOrders = response.data.data;
-        console.log(response.data);
-        this.manageData()
-      });
-    }
+        axios.get("/api/ordermonth/" + this.id).then((response) => {
+            this.sendOrder = response.data;
+            console.log(response.data);
+            this.menageData()
+            this.flagOrder = true
+        });
+    },
+    menageData() {
+        this.sendOrder.forEach((el) => {
+            this.orderLabel.push(el['months'])
+            this.orderData.push(el['sums'])
+        })
+    },
   }
 };
 </script>
