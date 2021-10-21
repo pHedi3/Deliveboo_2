@@ -149,8 +149,10 @@
             <div class="course special" @click="flagModal = !flagModal">
               <div class="center">
                 <h1>carrello</h1>
-                <div class="cartNumber">
-                  {{cart.length}}
+                <div class="inline">
+                  <div class="cartNumber">
+                    {{cart.length}}
+                  </div>
                 </div>
                 <i class="fas fa-shopping-cart"></i>
               </div>
@@ -521,17 +523,19 @@ export default {
       justify-content: center;
       align-items: center;
       .center {
-
-        .cartNumber {
+        text-align: center;
+        .inline {
           display: inline-block;
-          height: 20px;
-          width: 20px;
-          background-color: $background;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          color: white;
+          .cartNumber {
+            height: 20px;
+            width: 20px;
+            background-color: $background;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+          }
         }
       }
     }
