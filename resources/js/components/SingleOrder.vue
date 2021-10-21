@@ -11,11 +11,15 @@
     <div class="row order-row rounded">
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <div class="card-header"><i class="fas fa-utensils"></i>Piatti presenti nell' ordine</div>
+          <div class="card-header">
+            <i class="fas fa-utensils"></i>Piatti presenti nell' ordine
+          </div>
           <div class="card-body">
             <div class="card-text">
               <ol>
-                <li v-for="dish in dishes" :key="dish.id">{{ dish.name }} x  {{dish.pivot.quantity}}</li>
+                <li class="dish-list" v-for="dish in dishes" :key="dish.id">
+                  {{ dish.name }} x {{ dish.pivot.quantity }}
+                </li>
               </ol>
             </div>
           </div>
@@ -23,16 +27,36 @@
       </div>
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <div class="card-header"><i class="fas fa-info-circle"></i>Informazioni del consumatore</div>
+          <div class="card-header">
+            <i class="fas fa-info-circle"></i>Informazioni del consumatore
+          </div>
           <div class="card-body">
             <div class="card-text">
               <ul>
-                <li><span class="inner-text"><strong>Nome:</strong></span>{{ customer_name }}</li>
-                <li><span class="inner-text" ><strong>Cognome:</strong></span>{{ customer_surname }}</li>
-                <li><span class="inner-text" ><strong>Indirizzo:</strong></span>{{ customer_address }}</li>
-                <li><span class="inner-text"><strong>Email:</strong></span>{{ customer_email }}</li>
-                <li><span class="inner-text" ><strong>Telefono:</strong></span>{{ customer_phone }}</li>
-                <li><span class="inner-text" ><strong>Note:</strong></span>{{ notes }}</li>
+                <li>
+                  <span class="inner-text"><strong>Nome:</strong></span
+                  >{{ customer_name }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Cognome:</strong></span
+                  >{{ customer_surname }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Indirizzo:</strong></span
+                  >{{ customer_address }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Email:</strong></span
+                  >{{ customer_email }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Telefono:</strong></span
+                  >{{ customer_phone }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Note:</strong></span
+                  >{{ notes }}
+                </li>
               </ul>
             </div>
           </div>
@@ -40,14 +64,29 @@
       </div>
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <div class="card-header"><i class="fas fa-file-alt"></i>Informazione Ordine</div>
+          <div class="card-header">
+            <i class="fas fa-file-alt"></i>Informazione Ordine
+          </div>
           <div class="card-body">
             <div class="card-text">
               <ul>
-                <li><span class="inner-text"><strong>Prezzo totale:</strong></span>{{ total_price }}</li>
-                <li><span class="inner-text"><strong>Codice Sconto:</strong></span>{{ discount }}</li>
-                <li><span class="inner-text" ><strong>Indirizzo:</strong></span>{{ customer_address }}</li>
-                <li><span class="inner-text"><strong>Stato dell' ordine:</strong></span>{{ statusChange }}</li>
+                <li>
+                  <span class="inner-text"><strong>Prezzo totale:</strong></span
+                  >{{ total_price }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Codice Sconto:</strong></span
+                  >{{ discount }}
+                </li>
+                <li>
+                  <span class="inner-text"><strong>Indirizzo:</strong></span
+                  >{{ customer_address }}
+                </li>
+                <li>
+                  <span class="inner-text"
+                    ><strong>Stato dell' ordine:</strong></span
+                  >{{ statusChange }}
+                </li>
               </ul>
               <div>
                 <form>
@@ -147,11 +186,14 @@ export default {
   margin-bottom: 5px;
 }
 
-.inner-text{
-    padding: 5px;
-
-}
-i{
+.inner-text {
   padding: 5px;
+}
+i {
+  padding: 5px;
+}
+
+.dish-list::marker {
+  font-weight: bold;
 }
 </style>
