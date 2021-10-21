@@ -58,20 +58,25 @@ class StatsController extends Controller
 
     public function bestDish($id)
     {
-        $allOrder = Order::whereHas('dish', function($q) use($id) {
-            $q->where('dishes.restaurant_id', $id);
-        })->join('dishes', 'dishes.restaurant_id', '=', $id)->get(); 
-    //     ->select(
-    //         DB::raw('count(dishes) as `countDish`'),
-    //         DB::raw("DATE_FORMAT(created_at,'%M %Y') as months"),
-    //         DB::raw('max(created_at) as createdAt')
-    //  )
-    //        ->where("created_at", ">", \Carbon\Carbon::now()->subMonths(6))
-    //        ->orderBy('createdAt', 'asc')
-    //        ->groupBy('months')
-    //        ->get();;
-    // }
+        $allOrder = Order::join('dish_order', 'orders.id', '=', 'dish_order.order_id')
+        ->join('dishes', 'dishes.id', '=', 'dish_order.dish_id' )->where('restaurant_id', $id)
+        ->select(
+            DB::raw('dishes.id as `dish`'),
+            DB::raw('dishes.name as `name`'),
+            DB::raw('count(quantity) as `countDish`'),
+            DB::raw("DATE_FORMAT(orders.created_at,'%M %Y') as months"),
+            DB::raw('max(orders.created_at) as createdAt')
+     )
+           ->groupBy('dish')
+           ->where("orders.created_at", ">", \Carbon\Carbon::now()->subMonths(6))
+           ->orderBy('createdAt', 'asc')
+           ->groupBy('months')
+           ->get();;
     return response($allOrder);
+    }
+    public function month() 
+    {
+        return response(\Carbon\Carbon::now()->format('M'));
     }
 
 }
