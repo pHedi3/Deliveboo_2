@@ -11,12 +11,11 @@
     <div class="row order-row rounded">
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <div class="card-header">Piatti presenti nell' ordine</div>
+          <div class="card-header"><i class="fas fa-utensils"></i>Piatti presenti nell' ordine</div>
           <div class="card-body">
-            <h5 class="card-title">INFO</h5>
             <div class="card-text">
               <ol>
-                <li v-for="dish in dishes" :key="dish.id">{{ dish.name }} x {{dish.pivot.quantity}}</li>
+                <li v-for="dish in dishes" :key="dish.id">{{ dish.name }} x  {{dish.pivot.quantity}}</li>
               </ol>
             </div>
           </div>
@@ -24,17 +23,16 @@
       </div>
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <div class="card-header">Informazioni del consumatore</div>
+          <div class="card-header"><i class="fas fa-info-circle"></i>Informazioni del consumatore</div>
           <div class="card-body">
-            <h5 class="card-title">INFO</h5>
             <div class="card-text">
               <ul>
-                <li><span>Nome Cliente: </span>{{ customer_name }}</li>
-                <li><span>Cognome Cliente: </span>{{ customer_surname }}</li>
-                <li><span>Indirizzo Cliente: </span>{{ customer_address }}</li>
-                <li><span>Email Cliente: </span>{{ customer_email }}</li>
-                <li><span>Telefono Cliente: </span>{{ customer_phone }}</li>
-                <li><span>Note: </span>{{ notes }}</li>
+                <li><span class="inner-text"><strong>Nome:</strong></span>{{ customer_name }}</li>
+                <li><span class="inner-text" ><strong>Cognome:</strong></span>{{ customer_surname }}</li>
+                <li><span class="inner-text" ><strong>Indirizzo:</strong></span>{{ customer_address }}</li>
+                <li><span class="inner-text"><strong>Email:</strong></span>{{ customer_email }}</li>
+                <li><span class="inner-text" ><strong>Telefono:</strong></span>{{ customer_phone }}</li>
+                <li><span class="inner-text" ><strong>Note:</strong></span>{{ notes }}</li>
               </ul>
             </div>
           </div>
@@ -42,21 +40,20 @@
       </div>
       <div class="col-sm-12 col-lg-4">
         <div class="card h-100">
-          <div class="card-header">Informazione Ordine</div>
+          <div class="card-header"><i class="fas fa-file-alt"></i>Informazione Ordine</div>
           <div class="card-body">
-            <h5 class="card-title">INFO</h5>
             <div class="card-text">
               <ul>
-                <li><span>Prezzo totale: </span>{{ total_price }}</li>
-                <li><span>Codice Sconto: </span>{{ discount }}</li>
-                <li><span>Indirizzo Cliente: </span>{{ customer_address }}</li>
-                <li><span>Stato dell' ordine: </span>{{ statusChange }}</li>
+                <li><span class="inner-text"><strong>Prezzo totale:</strong></span>{{ total_price }}</li>
+                <li><span class="inner-text"><strong>Codice Sconto:</strong></span>{{ discount }}</li>
+                <li><span class="inner-text" ><strong>Indirizzo:</strong></span>{{ customer_address }}</li>
+                <li><span class="inner-text"><strong>Stato dell' ordine:</strong></span>{{ statusChange }}</li>
               </ul>
               <div>
                 <form>
                   <div class="form-group">
                     <label for="exampleFormControlSelect1"
-                      >Modifica stato dell' ordine</label
+                      ><strong>Modifica stato dell' ordine</strong></label
                     >
                     <select
                       v-model="statusChange"
@@ -148,5 +145,13 @@ export default {
 }
 .button-login {
   margin-bottom: 5px;
+}
+
+.inner-text{
+    padding: 5px;
+
+}
+i{
+  padding: 5px;
 }
 </style>

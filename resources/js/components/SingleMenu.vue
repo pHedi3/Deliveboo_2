@@ -23,13 +23,13 @@
           </a>
         </div>
       </div>
-      <div class="row">
+      <div class="row accordion-2">
         <div class="accordion col" id="accordionExample">
           <div class="card" v-for="item in course" :key="item.id">
             <div class="card-header" :id="item.name">
               <h2 class="mb-0">
                 <button
-                  class="btn btn-link btn-block text-left"
+                  class="btn btn-link btn-block text-left button-accordion"
                   type="button"
                   data-toggle="collapse"
                   :data-target="'#' + item.name + item.id"
@@ -557,11 +557,28 @@ export default {
 }
 
 .dishes-list {
+  
   li {
     margin-top: 20px;
     button {
       margin-left: 10px;
     }
   }
+}
+
+.card-header{
+  background: rgba(151, 150, 150, 0.199);
+}
+
+.text-left{
+  text-decoration: none;
+  color: $main-title !important;
+  &:hover{
+    text-decoration: none;
+    color: $main-title !important;
+  }
+}
+.button-accordion{
+  border: rgba(175, 169, 169, 0.637) solid 2px;
 }
 </style>
