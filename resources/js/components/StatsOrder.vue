@@ -7,10 +7,15 @@
 import Chart from 'chart.js/auto'
 export default {
   props: {
-      sendOrder: Array
+      orderLabel: Array,
+      orderData: Array
   },
   mounted() {
       this.renderChart()
+
+  },
+  computed: {
+      
 
   },
   data() {
@@ -23,10 +28,10 @@ export default {
         new Chart(document.getElementById('orderChart').getContext('2d'), {
             type: 'line',
             data: {
-                labels: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
+                labels: this.orderLabel,
                 datasets: [{
                     label: 'Vendite per mese',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: this.orderData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
