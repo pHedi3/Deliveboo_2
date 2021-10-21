@@ -7,7 +7,8 @@
 import Chart from 'chart.js/auto'
 export default {
   props: {
-
+      bestName: Array,
+      bestData: Array
   },
   mounted() {
       this.renderChart()
@@ -23,10 +24,10 @@ export default {
         new Chart(document.getElementById('bestChart').getContext('2d'), {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: this.bestName,
                 datasets: [{
-                    label: 'none',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'piatti per mese corrente',
+                    data: this.bestData,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
