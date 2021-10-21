@@ -4,21 +4,41 @@
       class="loading"
       v-show="loadingCourse && loadingRestaurant && loadingDish"
     >
-      caricamento...
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+    </div>
+    <div id="risultatoP" class="d-none p-1">
+        <div class="course">
+          <h1>Pagamento riuscito</h1>
+        <button @click="removeOk">
+          ok
+        </button>
+        </div>
+    </div>
+    <div id="risultatoN" class="d-none p-1">
+        <div class="course">
+          <h1>Pagamento Fallito</h1>
+        <button @click="removeBad">
+          riprova
+        </button>
+        </div>
     </div>
     <div v-show="!loadingCourse && !loadingRestaurant && !loadingDish">
       <div class="mymodal d-md-none p-1" v-show="flagModal">
         <div class="course">
           <div class="d-flex justify-content-between">
             <h1>carrello</h1>
-            <button @click="flagModal = !flagModal">
+            <button class="button-icon" @click="flagModal = !flagModal">
               <i class="fas fa-sort-down"></i>
             </button>
           </div>
-          <div v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
-            <span>{{ item.name }}</span>
-            <span>{{ item.quantity }}</span>
-            <button @click="remove(item)">
+          <div class="element-cart" v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
+            <div>
+              <span>{{ item.name }}</span>
+              <span>{{ item.quantity }}</span>
+            </div>
+            <button class="button-icon" @click="remove(item)">
               <i class="fas fa-times"></i>
             </button>
           </div>
@@ -30,71 +50,76 @@
           <!-- to do fare la parte della gestione delle quantità -->
         </div>
       </div>
-      <div class="mymodal p-1" v-show="flagCheck && checkPay">
+      <div class="mymodal p-1" v-show="flagCheck">
         <div class="container">
           <div class="row">
             <div class="col-12">
               <div class="course">
                 <div class="d-flex justify-content-between">
                   <h1>Completa l'ordine</h1>
-                  <button @click="flagCheck = !flagCheck; sendJson = {}; stepOne = true; stepTwo= false; stepThree= false">
+                  <button class="button-icon" @click="flagCheck = !flagCheck; sendJson = {}; stepOne = true; stepTwo= false; stepThree= false">
                     <i class="fas fa-sort-down"></i>
                   </button>
                 </div>
                 <div class="order" v-show="stepOne">
-                <div v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
-                  <span>{{ item.name }}</span>
-                  <input type="number" v-model="item.quantity">
-                  <button @click="remove(item)">
-                  <i class="fas fa-times"></i>
-                  </button>
+                <div class="row align-items-center" v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
+                  <h4 class="col-6 ">{{ item.name }}</h4>
+                  <div class="col-2 col-md-1">
+                    <input type="number" v-model="item.quantity" @change="totalPrice()">
+                  </div>
+                  <div class="co-1 offset-1">
+                    <button class=" button-icon" @click="remove(item)">
+                      <i class="fas fa-times"></i>
+                    </button>
+
+                  </div>
                 </div>
                   <h4>Totale: {{ allPrice }}€</h4>
-                  <button @click="stepOne=false; stepTwo=true">Prossimo passo</button>
+                  <button @click="stepOne=false; stepTwo=true; totalPrice()">Prossimo passo</button>
                 </div>
                 <div class="error" v-show="stepTwo">
                     <h5 v-for="(error, index) in errorText" :key="index">{{error}}</h5>
                 </div>
                 <div class="input" v-show="stepTwo">
-                  <div>
-                    <label for="name">inserisci nome</label>
-                    <input type="text" id="name" v-model="name" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="name"> nome</label>
+                    <input class="col-8 col-lg-6" type="text" id="name" v-model="name" />
                   </div>
-                  <div>
-                    <label for="surname">inserisci cognome</label>
-                    <input type="text" id="surname" v-model="surname" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="surname"> cognome</label>
+                    <input class="col-8 col-lg-6" type="text" id="surname" v-model="surname" />
                   </div>
-                  <div>
-                    <label for="address">inserisci indirizzo</label>
-                    <input type="text" id="address" v-model="address" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="address"> indirizzo</label>
+                    <input class="col-8 col-lg-6" type="text" id="address" v-model="address" />
                   </div>
-                  <div>
-                    <label for="phone">inserisci numero</label>
-                    <input type="text" id="phone" v-model="phone" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="phone"> numero</label>
+                    <input class="col-8 col-lg-6" type="text" id="phone" v-model="phone" />
                   </div>
-                  <div>
-                    <label for="email">inserisci email</label>
-                    <input type="text" id="email" v-model="email" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="email"> email</label>
+                    <input class="col-8 col-lg-6" type="text" id="email" v-model="email" />
                   </div>
-                  <div>
-                    <label for="discount">inserisci discount</label>
-                    <input type="text" id="discount" v-model="discount" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="discount"> discount</label>
+                    <input class="col-8 col-lg-6" type="text" id="discount" v-model="discount" />
                   </div>
-                  <div>
-                    <label for="notes">inserisci note</label>
-                    <input type="text" id="notes" v-model="notes" />
+                  <div class="row align-items-center p-1">
+                    <label class="col-3 col-lg-2" for="notes"> note</label>
+                    <input class="col-8 col-lg-6" type="text" id="notes" v-model="notes" />
                   </div>
-                  <button @click="myJson()">prossimo passo</button>
+                  <button @click="myJson">prossimo passo</button>
                 </div>
                 <div class="pay" v-show="stepThree">
                   <h4 v-show="flagToken">Attendi..</h4>
                   <h4>Totale: {{ allPrice }}€</h4>
                   <div id="dropin-container"></div>
-                  <button @click="stepThree=false; flagCheck= !flagCheck; cart = []; flagToken = true"
+                  <button @click="stepThree=false; flagCheck= !flagCheck; cart = []; saveCart(); totalPrice() "
                     id="submit-button"
                     class="button button--small button--green"
                   >
-                    Purchase
+                    Completa l'ordine
                   </button>
 
                 </div>
@@ -121,15 +146,21 @@
             </div>
           </div>
           <div class="col-6 d-md-none">
-            <div class="course" @click="flagModal = !flagModal">
-              <h1>carrello</h1>
+            <div class="course special" @click="flagModal = !flagModal">
+              <div class="center">
+                <h1>carrello</h1>
+                <div class="cartNumber">
+                  {{cart.length}}
+                </div>
+                <i class="fas fa-shopping-cart"></i>
+              </div>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-12">
             <div class="course" v-for="item in course" :key="item.id">
               <div class="d-flex justify-content-between">
                 <h1>{{ item.name }}</h1>
-                <button @click="showid = item.id">
+                <button class="button-icon" @click="takeId(item.id)">
                   <i class="fas fa-sort-down"></i>
                 </button>
               </div>
@@ -153,7 +184,7 @@
                   </div>
                   <div class="inner-dish-right">
                     <div class="add">
-                      <button @click="add(element)">
+                      <button class="button-icon" @click="add(element)">
                         <i class="fas fa-plus"></i>
                       </button>
                     </div>
@@ -166,10 +197,12 @@
           <div class="col-6 d-md-block d-none">
             <div class="course">
               <h1>carrello</h1>
-              <div v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
-                <span>{{ item.name }}</span>
-                <span>{{ item.quantity }}</span>
-                <button @click="remove(item)">
+              <div class="element-cart" v-show="flagReload" v-for="(item, key, index) in cart" :key="index">
+                <div>
+                  <span>{{ item.name }}</span>
+                  <span>{{ item.quantity }}</span>
+                </div>
+                <button class="button-icon" @click="remove(item)">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
@@ -182,7 +215,6 @@
         </div>
       </div>
     </div>
-    <div id="risultato" class="d-none"></div>
   </div>
 </template>
 
@@ -220,7 +252,8 @@ export default {
       stepOne: true,
       flagToken: true,
       flagReload: true,
-      allPrice: 0
+      allPrice: 0,
+      text: ""
 
     };
   },
@@ -234,17 +267,12 @@ export default {
     this.getCourse();
   },
   computed: {
-    checkPay() {
-      var text = document.getElementById("risultato").textContent;
-      if (text == "transizione avvenuta") {
-        return false;
-      }
-      return true;
-    }
+    
   },
   mounted() {
     if (JSON.parse(localStorage.getItem("storeCart")) != null) {
       this.cart = JSON.parse(localStorage.getItem("storeCart"));
+      this.totalPrice()
       if (this.cart[0].restaurant.id != this.id) {
         this.cart = [];
       }
@@ -253,12 +281,20 @@ export default {
     }
   },
   methods: {
+    takeId(id) {
+      if (this.showid == id) {
+        this.showid = 0
+      } else {
+        this.showid = id
+      }
+    },
     totalPrice() {
       this.allPrice = 0;
+      let total = 0
       this.cart.forEach((dish) => {
-        this.allPrice += dish.price * dish.quantity;
+        total += dish.price * dish.quantity;
       });
-      this.allPrice.toFixed(2);
+      this.allPrice = total.toFixed(2);
     },
     getRestaurant() {
       axios.get("/api/restaurants/" + this.id).then((response) => {
@@ -308,9 +344,11 @@ export default {
                     if (response.data.success) {
                       axios.post("/api/orders", order).then((response) => {
                         console.log(response.data.data);
-                        document.getElementById("risultato").innerHTML =
-                          "transizione avvenuta";
+                        document.getElementById("risultatoP").classList.add("ok");
+
                       });
+                    } else {
+                      document.getElementById("risultatoN").classList.add("bad");
                     }
                   });
               });
@@ -343,6 +381,12 @@ export default {
     },
     saveCart() {
       localStorage.setItem("storeCart", JSON.stringify(this.cart));
+    },
+    removeOk() {
+      document.getElementById("risultatoP").classList.remove("ok");
+    },
+    removeBad() {
+      document.getElementById("risultatoN").classList.remove("bad");
     },
     myJson() {
       this.errorText = []
@@ -444,7 +488,7 @@ export default {
 
 .back {
   background-color: $background;
-  .loading {
+  .loading{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -459,23 +503,62 @@ export default {
     width: 100%;
     height: 100vh;
     background-color: rgba($color: #0000, $alpha: 0.8);
+    padding-top: 12px;
   }
   .course {
     background-color: rgba($color: #ffffff, $alpha: 0.8);
     border-radius: 12px;
     padding: 8px;
-    margin-top: 12px;
+    margin-bottom: 12px ;
+    .order {
+      input {
+        width: 100%;
+      }
+    }
+    &.special {
+      height: calc(100% - 12px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .center {
+
+        .cartNumber {
+          display: inline-block;
+          height: 20px;
+          width: 20px;
+          background-color: $background;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+        }
+      }
+    }
     .dish {
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    .element-cart {
+      display: flex;
+      margin: 8px 0;
+      box-shadow: 0 0 3px 1px $background;
+      justify-content: space-between;
+      align-items: center;
+      button {
+        margin-right: 4px;
+      }
+      span {
+        font-weight: bold;
+        padding: 4px 0;
+      }
     }
 
     button {
       background-color: $background2;
       color: $main-title;
       border: $background2;
-
       &:hover,
       &:active,
       &:visited,
@@ -507,5 +590,44 @@ export default {
       padding: 6px 12px 12px;
     }
   }
+}
+.button-icon {
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ok {
+  display: block !important;
+  position: sticky;
+    top: 0;
+    z-index: 1001;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba($color: #0000, $alpha: 0.8);
+    text-align: center;
+    .course {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+}
+  .bad {
+  display: block !important;
+  position: sticky;
+    top: 0;
+    z-index: 1001;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba($color: #0000, $alpha: 0.8);
+    text-align: center;
+    .course {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 }
 </style>
