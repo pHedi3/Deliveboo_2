@@ -263,7 +263,6 @@ export default {
     id: Number,
   },
   created() {
-    console.log("Component mounted.");
     this.getRestaurant();
     this.getDish();
     this.getCourse();
@@ -277,9 +276,13 @@ export default {
       this.totalPrice()
       if (this.cart[0].restaurant.id != this.id) {
         this.cart = [];
+        this.totalPrice()
+
       }
     } else {
       this.cart = [];
+      this.totalPrice()
+
     }
   },
   methods: {
@@ -300,28 +303,24 @@ export default {
     },
     getRestaurant() {
       axios.get("/api/restaurants/" + this.id).then((response) => {
-        console.log(response.data.data);
         this.restaurant = response.data.data;
         this.loadingRestaurant = false;
       });
     },
     getDish() {
       axios.get("/api/dishes/" + this.id).then((response) => {
-        console.log(response.data.data);
         this.dish = response.data.data;
         this.loadingDish = false;
       });
     },
     getCourse() {
       axios.get("/api/courses").then((response) => {
-        console.log(response.data.data);
         this.course = response.data;
         this.loadingCourse = false;
       });
     },
     getToken() {
       axios.get("/api/pay").then((response) => {
-        console.log(response.data.data);
         this.token = response.data.token;
         var button = document.querySelector("#submit-button");
         var token = this.token;
@@ -342,10 +341,8 @@ export default {
                     cart: cart,
                   })
                   .then((response) => {
-                    console.log(response.data);
                     if (response.data.success) {
                       axios.post("/api/orders", order).then((response) => {
-                        console.log(response.data.data);
                         document.getElementById("risultatoP").classList.add("ok");
 
                       });
@@ -391,6 +388,7 @@ export default {
       document.getElementById("risultatoN").classList.remove("bad");
     },
     myJson() {
+      this.allOk = true
       this.errorText = []
       if (this.name == "") {
         this.errorText.push('Devi inserire il nome')

@@ -363,7 +363,6 @@ export default {
     id: Number,
   },
   created() {
-    console.log("Component mounted.");
     this.getRestaurant();
     this.getDish();
     this.getCourse();
@@ -376,20 +375,16 @@ export default {
   methods: {
     getRestaurant() {
       axios.get("/api/restaurants/" + this.id).then((response) => {
-        console.log(response.data.data);
         this.restaurant = response.data.data;
       });
     },
     getDish() {
       axios.get("/api/dishes/" + this.id).then((response) => {
-        console.log(response.data.data);
         this.dish = response.data.data;
       });
-      console.log("ciao");
     },
     getCourse() {
       axios.get("/api/courses").then((response) => {
-        console.log(response.data.data);
         this.course = response.data;
       });
     },
@@ -410,7 +405,6 @@ export default {
           restaurant_id: this.id,
         })
         .then((response) => {
-          console.log(response.data.data);
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -442,7 +436,6 @@ export default {
           restaurant_id: this.id,
         })
         .then((response) => {
-          console.log(response.data.data);
         })
         .catch((error) => {
           if (error.response.status == 422) {
@@ -461,7 +454,6 @@ export default {
     destroyDish(dishid) {
       this.getDishId = dishid;
       axios.delete("/api/dishes/" + this.getDishId).then((response) => {
-        console.log(response);
       });
       this.getDish();
       this.getDishId = "";

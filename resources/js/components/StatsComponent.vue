@@ -59,7 +59,6 @@ export default {
     getOrder() {
       axios.get("/api/ordermonth/" + this.id).then((response) => {
         this.sendOrder = response.data;
-        console.log(response.data);
         this.menageData();
         this.flagOrder = true;
       });
@@ -67,14 +66,12 @@ export default {
     getBest() {
       axios.get("/api/bestdish/" + this.id).then((response) => {
         this.best = response.data;
-        console.log(response.data);
         this.menageBest();
       });
     },
     getMonth() {
       axios.get("/api/month").then((response) => {
         this.month = response.data;
-        console.log(response.data);
         this.menageBest();
       });
     },

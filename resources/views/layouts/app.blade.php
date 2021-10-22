@@ -124,10 +124,10 @@
                         <div class="box-footer">
                             <div class="list-footer">Porta Deliveroo con te</div>
                             <div class="img-footer">
-                                <a href="#"><img src="./img/appstorefooter.png" width="150" alt=""></a>
+                                <a href="#"><img src="{{ asset('./img/appstorefooter.png') }}" width="150" alt=""></a>
                             </div>
                             <div class="img-footer">
-                                <a href="#"><img src="./img/appstorefooter2.png" width="150"alt=""></a>
+                                <a href="#"><img src="{{ asset('./img/appstorefooter2.png') }}" width="150"alt=""></a>
                             </div>
                         </div>
                     </div>

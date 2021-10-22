@@ -202,7 +202,6 @@ export default {
     getRestaurant() {
       axios.get("/api/userRestaurant/" + this.user_id).then((response) => {
         this.restaurants = response.data.data;
-        console.log(this.restaurants);
       });
     },
     getCategory() {
@@ -231,7 +230,6 @@ export default {
     getDishes() {
       axios.get("/api/dishes/{id}" + this.restaurant_id).then((response) => {
         this.dishes = response.data.data;
-        console.log(this.dishes);
       });
     },
   },

@@ -69,27 +69,23 @@ export default {
     };
   },
   mounted() {
-    console.log("Component mounted.");
     this.getCategory();
   },
   methods: {
     getRestaurantSearch() {
       axios.get("/api/restaurantsearch/" + this.search).then((response) => {
-        console.log(response.data);
             this.restaurants = response.data.data
             this.flegCategory = false
       });
     },
     getCategory() {
       axios.get("/api/categories").then((response) => {
-        console.log(response.data);
             this.category = response.data
       });
     },
     getCategorySearch(id) {
       axios.get("/api/categorysearch/" + id).then((response) => {
-        console.log(response.data.data);
-            this.restaurants = response.data.data
+        this.restaurants = response.data.data
       });
     },
   },

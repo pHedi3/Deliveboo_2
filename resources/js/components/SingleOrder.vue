@@ -158,7 +158,6 @@ export default {
           status: this.statusChange,
         })
         .then((response) => {
-          console.log(response.data.data);
           if (this.statusChange == "Complete") {
             this.statusChange = "hidden";
           }

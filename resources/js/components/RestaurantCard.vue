@@ -25,7 +25,6 @@ export default {
       category: String
   },
   mounted() {
-    console.log("Component mounted.");
   },
   methods: {
   },

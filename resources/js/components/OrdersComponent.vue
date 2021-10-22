@@ -52,7 +52,6 @@ export default {
     getOrders() {
       axios.get("/api/orderrestaurant/" + this.id).then((response) => {
         this.orders = response.data.data;
-        console.log(response.data);
       });
     },
   },
