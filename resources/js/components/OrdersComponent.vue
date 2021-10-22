@@ -11,23 +11,24 @@
       <div
         v-for="(order, index) in orders"
         :key="order.id"
-        class="row orders-row"
       >
-        <SingleOrder
-          :rId="id"
-          :oId="order.id"
-          :customer_name="order.customer_name"
-          :customer_surname="order.customer_surname"
-          :customer_address="order.customer_address"
-          :customer_email="order.customer_email"
-          :customer_phone="order.customer_phone"
-          :discount="order.discount"
-          :total_price="order.total_price"
-          :dishes="order.dishes"
-          :notes="order.notes"
-          :status="order.status"
-          :index="index"
-        />
+      <div class="row orders-row" v-if="order.status == 'paid' "> 
+          <SingleOrder
+            :rId="id"
+            :oId="order.id"
+            :customer_name="order.customer_name"
+            :customer_surname="order.customer_surname"
+            :customer_address="order.customer_address"
+            :customer_email="order.customer_email"
+            :customer_phone="order.customer_phone"
+            :discount="order.discount"
+            :total_price="order.total_price"
+            :dishes="order.dishes"
+            :notes="order.notes"
+            :status="order.status"
+            :index="index"
+          />
+        </div>
       </div>
     </div>
   </div>
