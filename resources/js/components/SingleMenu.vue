@@ -55,6 +55,7 @@
                     :key="singleDish.id"
                   >
                     {{ singleDish.name }}
+                    <strong>{{ singleDish.price }}€</strong>
 
                     <!-- TASTO CHE APRE LA MODALE PER MODIFICARE IL PIATTO -->
                     <button
@@ -404,8 +405,7 @@ export default {
           course_id: this.dishCourse,
           restaurant_id: this.id,
         })
-        .then((response) => {
-        })
+        .then((response) => {})
         .catch((error) => {
           if (error.response.status == 422) {
             this.validationErrors = error.response.data.errors;
@@ -435,8 +435,7 @@ export default {
           course_id: this.dishCourse,
           restaurant_id: this.id,
         })
-        .then((response) => {
-        })
+        .then((response) => {})
         .catch((error) => {
           if (error.response.status == 422) {
             this.validationErrors = error.response.data.errors;
@@ -453,8 +452,7 @@ export default {
     },
     destroyDish(dishid) {
       this.getDishId = dishid;
-      axios.delete("/api/dishes/" + this.getDishId).then((response) => {
-      });
+      axios.delete("/api/dishes/" + this.getDishId).then((response) => {});
       this.getDish();
       this.getDishId = "";
     },
