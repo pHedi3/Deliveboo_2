@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3 box-content">
                         <div class="box-footer">
-                            <div class="list-footer">Discover Deliveroo</div>
+                            <div class="list-footer">Discover Deliveboo</div>
                             <div class="list-footer"><a href="#">Investitori</a></div>
                             <div class="list-footer"><a href="#">Chi siamo</a></div>
                             <div class="list-footer"><a href="#">Ristoranti</a></div>
