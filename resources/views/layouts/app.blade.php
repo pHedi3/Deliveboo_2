@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Deliveboo') }}</title>
 
     <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
 
@@ -138,7 +138,7 @@
                             <span class="icon-footer"><a href="#"><i class="fab fa-instagram"></i></a></span>
                         </div>
                         <div class="rigth-bottom-footer">
-                            <span><i class="far fa-copyright"></i> 2021 Deliveroo</span>
+                            <span><i class="far fa-copyright"></i> 2021 Deliveboo</span>
                         </div>
                     </div>
                 </div>
