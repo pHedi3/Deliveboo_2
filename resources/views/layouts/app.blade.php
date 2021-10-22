@@ -122,7 +122,7 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 box-content">
                         <div class="box-footer">
-                            <div class="list-footer">Porta Deliveroo con te</div>
+                            <div class="list-footer">Porta Deliveboo con te</div>
                             <div class="img-footer">
                                 <a href="#"><img src="{{ asset('./img/appstorefooter.png') }}" width="150" alt=""></a>
                             </div>
