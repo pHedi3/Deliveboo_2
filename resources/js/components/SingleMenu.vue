@@ -398,6 +398,7 @@ export default {
       this.dishNameEdit = name;
       this.dishIngredientsEdit = ingredients;
       this.dishPriceEdit = price;
+      this.validationErrors = "";
     },
     postDish() {
       axios
@@ -420,7 +421,7 @@ export default {
       this.dishName = "";
       this.dishPrice = "";
       this.dishIngredients = "";
-      this.dishCourse = "";
+      this.validationErrors = "";
       setTimeout(() => {
         this.getDish();
       }, 2000);
@@ -557,7 +558,6 @@ export default {
 }
 
 .dishes-list {
-  
   li {
     margin-top: 20px;
     button {
@@ -566,19 +566,19 @@ export default {
   }
 }
 
-.card-header{
+.card-header {
   background: rgba(151, 150, 150, 0.199);
 }
 
-.text-left{
+.text-left {
   text-decoration: none;
   color: $main-title !important;
-  &:hover{
+  &:hover {
     text-decoration: none;
     color: $main-title !important;
   }
 }
-.button-accordion{
+.button-accordion {
   border: rgba(175, 169, 169, 0.637) solid 2px;
 }
 </style>
