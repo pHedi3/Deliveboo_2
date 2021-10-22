@@ -16,7 +16,7 @@
                 v-for="element in category"
                 :key="element.id"
                 class="text-muted"
-                >{{ element.name }} {{ rId }}</small
+                >{{ element.name }} </small
               >
             </p>
             <p class="card-text">
@@ -80,13 +80,11 @@ export default {
     getDishes(rId) {
       axios.get("/api/dishes/" + rId).then((response) => {
         this.dishes = response.data.data;
-        console.log(response);
       });
     },
     getCourses() {
       axios.get("/api/courses").then((response) => {
         this.courses = response.data;
-        console.log(response.data);
       });
     },
   },

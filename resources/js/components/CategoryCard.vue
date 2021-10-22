@@ -24,7 +24,6 @@ export default {
       img: String,
   },
   mounted() {
-    console.log("Component mounted.");
   },
   methods: {
   },

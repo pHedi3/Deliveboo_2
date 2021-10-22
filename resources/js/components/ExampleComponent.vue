@@ -133,7 +133,6 @@ export default {
     };
   },
   mounted() {
-    console.log("Component mounted.");
     this.getOrder();
   },
   methods: {
@@ -148,7 +147,6 @@ export default {
     },
     getOrder() {
       axios.get("/api/orders/1").then((response) => {
-        console.log(response.data);
 
         this.customer_name = response.data.data.customer_name;
         this.customer_surname = response.data.data.customer_surname;
