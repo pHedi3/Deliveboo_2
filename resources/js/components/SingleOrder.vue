@@ -72,7 +72,7 @@
               <ul>
                 <li>
                   <span class="inner-text"><strong>Prezzo totale:</strong></span
-                  >{{ total_price }}
+                  >{{ total_price }}€
                 </li>
                 <li>
                   <span class="inner-text"><strong>Codice Sconto:</strong></span
